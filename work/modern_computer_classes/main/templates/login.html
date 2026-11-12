@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Modern Computer Classes</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #06172f, #083b63, #087d9e, #0bb9df);
+            color: white;
+        }
+
+        header {
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(3, 18, 40, 0.85);
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #55ddff;
+            box-shadow: 0 0 15px rgba(85,221,255,0.35);
+        }
+
+        .brand h1 {
+            font-size: 22px;
+        }
+
+        .brand p {
+            margin-top: 3px;
+            color: #63ddff;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+        }
+
+        .login-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .login-box {
+            width: 390px;
+            padding: 42px;
+            border-radius: 22px;
+            background: rgba(255,255,255,0.97);
+            color: #172033;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            animation: cardAppear 0.7s ease;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #087da0, #10c6eb);
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 10px 25px rgba(8,125,160,0.3);
+        }
+
+        .login-box h2 {
+            font-size: 30px;
+            color: #102c4d;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            color: #718293;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #31465d;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d7e1e8;
+            border-radius: 9px;
+            outline: none;
+            font-size: 14px;
+            color: #172033;
+            background: #f8fbfd;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #0bb8df;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(11,184,223,0.12);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #087da0, #0bc3e8);
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(8,125,160,0.25);
+        }
+
+        .login-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(8,125,160,0.35);
+        }
+
+        .register-text {
+            margin-top: 23px;
+            color: #718293;
+            font-size: 14px;
+        }
+
+        .register-text a {
+            color: #078eb7;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #04152d, #062d4d, #064d66);
+            color: white;
+            padding: 40px 7% 18px;
+            border-top: 1px solid rgba(85,221,255,0.2);
+            box-shadow: 0 -8px 30px rgba(0,0,0,0.15);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 45px;
+        }
+
+        .footer-brand h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .footer-brand .tagline {
+            color: #55ddff;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand .description {
+            color: #a9bbc8;
+            font-size: 13px;
+            line-height: 1.6;
+            max-width: 330px;
+        }
+
+        .footer-column h3 {
+            font-size: 15px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: "";
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: #55ddff;
+            margin-top: 7px;
+        }
+
+        .footer-column a {
+            display: block;
+            width: fit-content;
+            margin-bottom: 10px;
+            color: #b9cad6;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #55ddff;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 30px auto 0;
+            padding-top: 17px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: #7f95a5;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .footer-bottom .future-text {
+            color: #55cfea;
+            margin-top: 3px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .brand h1 {
+                font-size: 18px;
+            }
+
+            .brand img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .login-container {
+                padding: 35px 18px;
+            }
+
+            .login-box {
+                width: 100%;
+                padding: 32px 24px;
+            }
+
+            .login-box h2 {
+                font-size: 26px;
+            }
+
+            .footer {
+                padding: 35px 8% 18px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .footer-brand {
+                text-align: center;
+            }
+
+            .footer-brand .description {
+                margin: auto;
+            }
+
+            .footer-column {
+                text-align: center;
+            }
+
+            .footer-column h3::after {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .footer-column a {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+        <div class="brand">
+
+            <img src="{% static 'images/logo.jpg' %}"
+                 alt="Modern Computer Classes Logo">
+
+            <div>
+                <h1>Modern Computer Classes</h1>
+                <p>LEARN • GROW • INNOVATE</p>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- LOGIN -->
+
+    <main class="login-container">
+
+        <div class="login-box">
+
+            <div class="login-icon">🔐</div>
+
+            <h2>Welcome Back</h2>
+
+            <p class="login-subtitle">
+                Login to continue your learning journey
+            </p>
+
+            <!-- DJANGO LOGIN FORM -->
+
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                <div class="input-group">
+
+                    <label for="username">Username</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login →
+                </button>
+
+            </form>
+
+            <p class="register-text">
+                Don't have an account?
+
+                <a href="{% url 'registration' %}">
+                    Register Now
+                </a>
+            </p>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <h2>Modern Computer Classes</h2>
+
+                <p class="tagline">
+                    LEARN • GROW • INNOVATE
+                </p>
+
+                <p class="description">
+                    Empowering students with practical digital
+                    skills and helping them build a brighter
+                    technology-driven future.
+                </p>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h3>Quick Links</h3>
+
+                <a href="{% url 'home' %}">Home</a>
+
+                <a href="{% url 'courses' %}">Courses</a>
+
+                <a href="{% url 'contact' %}">Contact</a>
+
+                <a href="{% url 'registration' %}">Registration</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h3>Connect With Us</h3>
+
+                <a href="https://www.instagram.com/" target="_blank">
+                    📸 Instagram
+                </a>
+
+                <a href="https://www.facebook.com/" target="_blank">
+                    📘 Facebook
+                </a>
+
+                <a href="mailto:moderncomputer@example.com">
+                    ✉️ Email Us
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Modern Computer Classes
+                • All Rights Reserved
+            </p>
+
+            <p class="future-text">
+                Learn today. Build tomorrow. 🚀
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>

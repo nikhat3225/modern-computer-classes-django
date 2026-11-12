@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile | Modern Computer Classes</title>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+body { background: #f3f7fc; color: #233b56; }
+
+.sidebar {
+    width: 250px; height: 100vh; position: fixed; left: 0; top: 0;
+    background: linear-gradient(180deg, #102e55, #087e9b);
+    padding: 28px 20px; color: white;
+}
+.brand { font-size: 19px; font-weight: 800; margin-bottom: 8px; }
+.brand span { color: #6dd5ed; }
+.tagline { font-size: 12px; color: #d1eaf3; margin-bottom: 40px; }
+.menu-title { font-size: 11px; color: #b8d7e7; margin: 20px 10px 12px; letter-spacing: 1px; }
+.sidebar a {
+    display: block; color: #e5f3fa; text-decoration: none;
+    padding: 13px 14px; margin-bottom: 8px; border-radius: 9px; font-size: 14px;
+}
+.sidebar a:hover, .sidebar a.active { background: rgba(255,255,255,0.18); color: white; }
+.logout { position: absolute; bottom: 25px; left: 20px; right: 20px; }
+
+.main-content { margin-left: 250px; padding: 30px; }
+.main-content h2 { color: #102e55; margin-bottom: 6px; }
+.sub { color: #8190a3; font-size: 13px; margin-bottom: 25px; }
+
+.card {
+    background: white; padding: 26px; border-radius: 13px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.04); max-width: 700px;
+}
+.avatar {
+    width: 70px; height: 70px; border-radius: 50%;
+    background: #d9f4fa; color: #087e9b;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; margin-bottom: 18px;
+}
+.row {
+    display: flex; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid #edf1f5; font-size: 14px;
+}
+.row:last-child { border-bottom: none; }
+.row span:first-child { color: #8793a3; }
+.row span:last-child { color: #102e55; font-weight: bold; }
+.notice {
+    padding: 14px; background: #fff4d8; color: #a66b00;
+    border-radius: 8px; font-size: 14px; margin-bottom: 18px;
+}
+
+@media (max-width: 750px) {
+    .sidebar { width: 100%; height: auto; position: relative; }
+    .logout { position: static; margin-top: 15px; }
+    .main-content { margin-left: 0; padding: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <div class="brand">MODERN <span>COMPUTER CLASSES</span></div>
+    <p class="tagline">Learn • Grow • Innovate</p>
+    <p class="menu-title">STUDENT MENU</p>
+
+    <a href="{% url 'home' %}">🌐 Home</a>
+    <a href="{% url 'student_dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'my_courses' %}">📚 My Courses</a>
+    <a href="/assignments/">📝 Assignments</a>
+    <a href="{% url 'my_certificates' %}">🏆 Certificates</a>
+    <a href="{% url 'student_profile' %}" class="active">👤 My Profile</a>
+    <a href="/contact/">💬 Help & Support</a>
+
+    <div class="logout">
+        <form method="POST" action="{% url 'student_logout' %}">
+            {% csrf_token %}
+            <button type="submit" style="width:100%; text-align:left; background:transparent; border:none; color:#e5f3fa; padding:13px 14px; border-radius:9px; font-size:14px; cursor:pointer;">
+                🚪 Logout
+            </button>
+        </form>
+    </div>
+</aside>
+
+<main class="main-content">
+    <h2>My Profile</h2>
+    <p class="sub">Your personal details.</p>
+
+    <div class="card">
+        <div class="avatar">🎓</div>
+
+        {% if not student %}
+        <div class="notice">
+            Your login account is not linked to a student record yet.
+            Please contact the institute admin.
+        </div>
+        {% endif %}
+
+        <div class="row"><span>Name</span><span>{% if student %}{{ student.name }}{% else %}{{ request.user.username }}{% endif %}</span></div>
+        <div class="row"><span>Username</span><span>{{ request.user.username }}</span></div>
+        <div class="row"><span>Email</span><span>{% if student %}{{ student.email }}{% else %}{{ request.user.email|default:"--" }}{% endif %}</span></div>
+        <div class="row"><span>Course</span><span>{{ student.course.name|default:"Not assigned" }}</span></div>
+        <div class="row"><span>Status</span><span>{{ student.status|default:"--" }}</span></div>
+        <div class="row"><span>Joined On</span><span>{% if student %}{{ student.created_at|date:"d M Y" }}{% else %}--{% endif %}</span></div>
+    </div>
+</main>
+
+</body>
+</html>

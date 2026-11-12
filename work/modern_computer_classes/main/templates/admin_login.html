@@ -1,0 +1,432 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Modern Computer Classes</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            background:
+                radial-gradient(circle at top left, #1c5b91 0, transparent 35%),
+                linear-gradient(135deg, #06152d, #0b2d50 55%, #087e9b);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 950px;
+            min-height: 560px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #ffffff;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+        }
+
+        /* LEFT INFORMATION PANEL */
+        .welcome-panel {
+            padding: 50px 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(145deg, #102e55, #087e9b);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-panel::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            border-radius: 50%;
+            right: -100px;
+            top: -80px;
+        }
+
+        .welcome-panel::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            left: -100px;
+            bottom: -80px;
+        }
+
+        .brand {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 45px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand span {
+            color: #6dd5ed;
+        }
+
+        .admin-icon {
+            width: 75px;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            background: rgba(255, 255, 255, 0.13);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-panel h1 {
+            font-size: 32px;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-panel h1 span {
+            color: #6dd5ed;
+        }
+
+        .welcome-panel p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #e0f3fb;
+            max-width: 340px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .security-note {
+            margin-top: 35px;
+            padding: 13px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid #6dd5ed;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #e7f7fc;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* RIGHT LOGIN FORM */
+        .form-panel {
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-heading {
+            margin-bottom: 30px;
+        }
+
+        .form-heading h2 {
+            color: #102542;
+            font-size: 28px;
+            margin-bottom: 9px;
+        }
+
+        .form-heading p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #233b56;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 9px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #d8e3ed;
+            border-radius: 10px;
+            outline: none;
+            background: #f8fbfe;
+            color: #102542;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #2193b0;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(33, 147, 176, 0.12);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin: 3px 0 25px;
+            font-size: 12px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #60758a;
+        }
+
+        .remember input {
+            accent-color: #087e9b;
+        }
+
+        .forgot-link {
+            color: #167b9b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1e3c72, #087e9b);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(8, 126, 155, 0.22);
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(8, 126, 155, 0.3);
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+        }
+
+        .back-home a {
+            color: #167b9b;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-text {
+            margin-top: 35px;
+            text-align: center;
+            font-size: 11px;
+            color: #9aa9b8;
+        }
+
+        .error-message {
+            color: #dc2626;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .success-message {
+            color: #166534;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 750px) {
+            .login-container {
+                max-width: 480px;
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-panel {
+                padding: 30px;
+            }
+
+            .brand {
+                margin-bottom: 25px;
+            }
+
+            .admin-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+                margin-bottom: 18px;
+            }
+
+            .welcome-panel h1 {
+                font-size: 27px;
+            }
+
+            .security-note {
+                margin-top: 22px;
+            }
+
+            .form-panel {
+                padding: 35px 30px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            body {
+                padding: 14px;
+            }
+
+            .welcome-panel,
+            .form-panel {
+                padding: 28px 22px;
+            }
+
+            .form-heading h2 {
+                font-size: 25px;
+            }
+
+            .form-options {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <!-- LEFT PANEL -->
+        <div class="welcome-panel">
+            <div class="brand">
+                MODERN <span>COMPUTER CLASSES</span>
+            </div>
+
+            <div class="admin-icon">🛡️</div>
+
+            <h1>Admin <span>Portal</span></h1>
+
+            <p>
+                Welcome back! Sign in to manage students, courses,
+                teachers and institute activities from one place.
+            </p>
+
+            <div class="security-note">
+                🔒 Authorized access only. Please use your admin credentials.
+            </div>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div class="form-panel">
+
+            <div class="form-heading">
+                <h2>Login Here</h2>
+                <p>Enter your admin credentials to continue.</p>
+            </div>
+
+            <!-- Django Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'success' %}success-message{% else %}error-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Django Login Form -->
+            <form action="{% url 'admin_login' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="username">Username or Email</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username or email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <div class="form-options">
+                    <label class="remember">
+                        <input type="checkbox" name="remember">
+                        Remember me
+                    </label>
+
+                    <a href="#" class="forgot-link">
+                        Forgot Password?
+                    </a>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Login to Dashboard →
+                </button>
+            </form>
+
+            <div class="back-home">
+                <a href="{% url 'home' %}">← Back to Home</a>
+            </div>
+
+            <div class="footer-text">
+                © 2026 Modern Computer Classes
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

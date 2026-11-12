@@ -1,0 +1,1159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Modern Computer Classes</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f6fb;
+    color: #1e293b;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #071a35;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 22px 15px;
+    overflow-y: auto;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px 10px 25px;
+    border-bottom: 1px solid #243b5a;
+}
+
+.logo span {
+    color: #00d4ff;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 10px;
+}
+
+.admin-avatar {
+    width: 42px;
+    height: 42px;
+    background: #00aeea;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.admin-profile small {
+    display: block;
+    color: #a8b8cc;
+    margin-top: 4px;
+}
+
+.sidebar h4 {
+    color: #8295ad;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 15px 10px 8px;
+}
+
+.nav-btn {
+    width: 100%;
+    display: block;
+    text-align: left;
+    background: transparent;
+    color: #d5e0ee;
+    border: none;
+    padding: 13px 12px;
+    margin: 3px 0;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    background: #123d65;
+    color: #00d4ff;
+}
+
+.logout-btn {
+    margin-top: 20px;
+    color: #ffb4b4;
+}
+
+/* Main */
+.main {
+    margin-left: 250px;
+    padding: 25px 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 28px;
+}
+
+.topbar h1 {
+    font-size: 25px;
+    color: #102b4e;
+}
+
+.topbar p {
+    color: #64748b;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+.top-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.top-actions button {
+    border: 1px solid #dbe3ed;
+    background: white;
+    padding: 10px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.admin-tag {
+    background: #e0f7ff;
+    color: #087eae;
+    padding: 9px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Sections */
+.page-section {
+    display: none;
+}
+
+.page-section.active {
+    display: block;
+}
+
+.welcome {
+    background: linear-gradient(120deg, #0b2b50, #087eae);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.welcome h2 {
+    margin-bottom: 9px;
+}
+
+.welcome p {
+    color: #d8efff;
+    font-size: 14px;
+}
+
+/* Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(15, 35, 65, 0.04);
+}
+
+.stat-card .icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.stat-card p {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.stat-card h2 {
+    color: #102b4e;
+    margin: 8px 0;
+    font-size: 27px;
+}
+
+.stat-card small {
+    color: #0d9b76;
+}
+
+/* Content cards */
+.content-card {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    box-shadow: 0 3px 12px rgba(15, 35, 65, 0.04);
+}
+
+.card-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.card-heading h3 {
+    color: #102b4e;
+}
+
+.primary-btn {
+    background: #00aeea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.primary-btn:hover {
+    background: #0787bd;
+}
+
+.search-box {
+    width: 100%;
+    max-width: 280px;
+    padding: 10px 12px;
+    border: 1px solid #d5deea;
+    border-radius: 6px;
+    outline: none;
+}
+
+/* Tables */
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th, td {
+    text-align: left;
+    padding: 13px 12px;
+    border-bottom: 1px solid #edf1f6;
+    font-size: 13px;
+}
+
+th {
+    color: #64748b;
+    background: #f8fafc;
+}
+
+td {
+    color: #334155;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    background: #e8f8ef;
+    color: #13834d;
+}
+
+.status.pending {
+    background: #fff4d8;
+    color: #a66b00;
+}
+
+.action-btn {
+    border: none;
+    background: #eaf6ff;
+    color: #087eae;
+    padding: 6px 9px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.action-btn.delete {
+    background: #fff0f0;
+    color: #c53030;
+}
+
+/* Forms */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d5deea;
+    border-radius: 6px;
+    background: white;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d5deea;
+    border-radius: 6px;
+    background: white;
+    font-family: Arial, sans-serif;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.notice {
+    padding: 14px;
+    background: #eff8ff;
+    color: #075985;
+    border-radius: 7px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.quick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.quick-item {
+    background: #f8fafc;
+    border: 1px solid #e5edf5;
+    padding: 18px;
+    border-radius: 8px;
+}
+
+.quick-item h4 {
+    margin-bottom: 7px;
+    color: #102b4e;
+}
+
+.quick-item p {
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 800px) {
+    .sidebar {
+        width: 210px;
+    }
+
+    .main {
+        margin-left: 210px;
+        padding: 20px;
+    }
+
+    .quick-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .stats-grid,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="logo">Modern <span>Computer Classes</span></div>
+
+    <div class="admin-profile">
+        <div class="admin-avatar">
+            {{ request.user.username|first|upper }}
+        </div>
+        <div>
+            <strong>{{ request.user.username }}</strong>
+            <small>Admin Panel</small>
+        </div>
+    </div>
+
+    <h4>MAIN MENU</h4>
+
+    <button class="nav-btn active" data-page="dashboard">📊 Dashboard</button>
+    <button class="nav-btn" data-page="students">👨‍🎓 Students</button>
+    <button class="nav-btn" data-page="courses">📚 Courses</button>
+    <button class="nav-btn" data-page="assignments">📝 Assignments</button>
+    <button class="nav-btn" data-page="enrollments">🗂️ Enrollments</button>
+    <button class="nav-btn" data-page="payments">💳 Payments</button>
+    <button class="nav-btn" data-page="certificates">🏆 Certificates</button>
+    <button class="nav-btn" data-page="teachers">👩‍🏫 Teachers</button>
+    <button class="nav-btn" data-page="reports">📈 Reports</button>
+
+    <h4>SETTINGS</h4>
+    <button class="nav-btn" data-page="settings">⚙️ Settings</button>
+
+    <form method="POST" action="{% url 'admin_logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="nav-btn logout-btn">🚪 Logout</button>
+    </form>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+    <div class="topbar">
+        <div>
+            <h1 id="pageTitle">Admin Dashboard</h1>
+            <p>Manage your computer classes from one place.</p>
+        </div>
+
+        <div class="top-actions">
+            <span class="admin-tag">{{ request.user.username }}</span>
+            <button onclick="showPage('settings')">⚙️</button>
+        </div>
+    </div>
+
+    <!-- MESSAGES (success / error) -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="notice">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- DASHBOARD -->
+    <section class="page-section active" id="dashboard">
+        <div class="welcome">
+            <h2>Welcome to Admin Panel 👋</h2>
+            <p>Here is an overview of Modern Computer Classes.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon">👨‍🎓</div>
+                <p>Total Students</p>
+                <h2>{{ student_count }}</h2>
+                <small>Registered students</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">📚</div>
+                <p>Total Courses</p>
+                <h2>{{ course_count }}</h2>
+                <small>Available courses</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">📝</div>
+                <p>Enrollments</p>
+                <h2>{{ enrollment_count }}</h2>
+                <small>Course enrollments</small>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon">💰</div>
+                <p>Total Payments</p>
+                <h2>₹{{ total_payments|floatformat:2 }}</h2>
+                <small>Paid amount</small>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Recent Student Registrations</h3>
+                <button class="primary-btn" onclick="showPage('students')">
+                    View Students
+                </button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Course</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students|slice:":5" %}
+                        <tr>
+                            <td>{{ student.id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.email }}</td>
+                            <td>{{ student.course.name|default:"Not assigned" }}</td>
+                            <td><span class="status">{{ student.status }}</span></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No students registered yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Quick Actions</h3>
+            </div>
+
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <h4>👨‍🎓 Manage Students</h4>
+                    <p>Add, view or remove student records.</p>
+                    <br>
+                    <button class="primary-btn" onclick="showPage('students')">Open</button>
+                </div>
+
+                <div class="quick-item">
+                    <h4>📝 Manage Assignments</h4>
+                    <p>Create assignments for your courses.</p>
+                    <br>
+                    <button class="primary-btn" onclick="showPage('assignments')">Open</button>
+                </div>
+
+                <div class="quick-item">
+                    <h4>📈 View Reports</h4>
+                    <p>Check enrollment and payment summaries.</p>
+                    <br>
+                    <button class="primary-btn" onclick="showPage('reports')">Open</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STUDENTS -->
+    <section class="page-section" id="students">
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Student Management</h3>
+                <button class="primary-btn" onclick="toggleStudentForm()">
+                    + Add Student
+                </button>
+            </div>
+
+            <!-- ADD STUDENT FORM -->
+            <div id="studentFormCard" style="display:none; margin-bottom:20px;">
+                <form method="POST" action="{% url 'add_student' %}">
+                    {% csrf_token %}
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Student Name</label>
+                            {{ student_form.name }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            {{ student_form.email }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Course</label>
+                            {{ student_form.course }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            {{ student_form.status }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Login Username</label>
+                            {{ student_form.username }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Login Password</label>
+                            {{ student_form.password }}
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="primary-btn">Save Student</button>
+                </form>
+            </div>
+
+            <input class="search-box" id="studentSearch"
+                   placeholder="Search student..." oninput="searchStudents()">
+
+            <br><br>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Student Name</th>
+                            <th>Email</th>
+                            <th>Course</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTable">
+                        {% for student in students %}
+                        <tr>
+                            <td>{{ student.id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.email }}</td>
+                            <td>{{ student.course.name|default:"Not assigned" }}</td>
+                            <td><span class="status">{{ student.status }}</span></td>
+                            <td>
+                                <button class="action-btn"
+                                        onclick="alert('Edit student form will be connected next.')">
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">No students found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- COURSES -->
+    <section class="page-section" id="courses">
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Course Management</h3>
+                <button class="primary-btn" onclick="toggleCourseForm()">
+                    + Add Course
+                </button>
+            </div>
+
+            <!-- ADD COURSE FORM -->
+            <div id="courseFormCard" style="display:none; margin-bottom:20px;">
+                <form method="POST" action="{% url 'add_course' %}">
+                    {% csrf_token %}
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Course Name</label>
+                            {{ course_form.name }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Duration</label>
+                            {{ course_form.duration }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Fees (₹)</label>
+                            {{ course_form.fees }}
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="primary-btn">Save Course</button>
+                </form>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course ID</th>
+                            <th>Course Name</th>
+                            <th>Duration</th>
+                            <th>Fees</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                        <tr>
+                            <td>{{ course.id }}</td>
+                            <td>{{ course.name }}</td>
+                            <td>{{ course.duration }}</td>
+                            <td>₹{{ course.fees }}</td>
+                            <td>
+                                <button class="action-btn"
+                                        onclick="alert('Edit course form will be connected next.')">
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No courses added yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ASSIGNMENTS -->
+    <section class="page-section" id="assignments">
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Assignment Management</h3>
+                <button class="primary-btn" onclick="toggleAssignmentForm()">
+                    + Add Assignment
+                </button>
+            </div>
+
+            <!-- ADD ASSIGNMENT FORM -->
+            <div id="assignmentFormCard" style="display:none; margin-bottom:20px;">
+                <form method="POST" action="{% url 'add_assignment' %}">
+                    {% csrf_token %}
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Title</label>
+                            {{ assignment_form.title }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Course</label>
+                            {{ assignment_form.course }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Due Date</label>
+                            {{ assignment_form.due_date }}
+                        </div>
+
+                        <div class="form-group full">
+                            <label>Description</label>
+                            {{ assignment_form.description }}
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="primary-btn">Save Assignment</button>
+                </form>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Course</th>
+                            <th>Due Date</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for assignment in assignments %}
+                        <tr>
+                            <td>{{ assignment.id }}</td>
+                            <td>{{ assignment.title }}</td>
+                            <td>{{ assignment.course.name }}</td>
+                            <td>{{ assignment.due_date|date:"d M Y"|default:"--" }}</td>
+                            <td>{{ assignment.description|truncatechars:60 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No assignments added yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENROLLMENTS -->
+    <section class="page-section" id="enrollments">
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Course Enrollments</h3>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Enrollment ID</th>
+                            <th>Student</th>
+                            <th>Course</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for enrollment in enrollments %}
+                        <tr>
+                            <td>{{ enrollment.id }}</td>
+                            <td>{{ enrollment.student.name }}</td>
+                            <td>{{ enrollment.course.name }}</td>
+                            <td>{{ enrollment.enrolled_on }}</td>
+                            <td><span class="status">{{ enrollment.status }}</span></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No enrollments found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAYMENTS -->
+    <section class="page-section" id="payments">
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Payment Management</h3>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Student</th>
+                            <th>Course</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payment in payments %}
+                        <tr>
+                            <td>{{ payment.id }}</td>
+                            <td>{{ payment.student.name }}</td>
+                            <td>{{ payment.course.name }}</td>
+                            <td>₹{{ payment.amount }}</td>
+                            <td><span class="status">{{ payment.status }}</span></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No payments found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section class="page-section" id="certificates">
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Certificate Management</h3>
+                <button class="primary-btn"
+                        onclick="alert('Certificate generation will be connected next.')">
+                    + Generate Certificate
+                </button>
+            </div>
+
+            <div class="notice">
+                View eligible students and generate course completion certificates.
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Certificate ID</th>
+                            <th>Student</th>
+                            <th>Course</th>
+                            <th>Issue Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for certificate in certificates %}
+                        <tr>
+                            <td>{{ certificate.id }}</td>
+                            <td>{{ certificate.student.name }}</td>
+                            <td>{{ certificate.course.name }}</td>
+                            <td>{{ certificate.issue_date|default:"--" }}</td>
+                            <td><span class="status">{{ certificate.status }}</span></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No certificates found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEACHERS -->
+    <section class="page-section" id="teachers">
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Teacher Management</h3>
+                <button class="primary-btn" onclick="toggleTeacherForm()">
+                    + Add Teacher
+                </button>
+            </div>
+
+            <!-- ADD TEACHER FORM -->
+            <div id="teacherFormCard" style="display:none; margin-bottom:20px;">
+                <form method="POST" action="{% url 'add_teacher' %}">
+                    {% csrf_token %}
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Teacher Name</label>
+                            {{ teacher_form.name }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            {{ teacher_form.email }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Subject</label>
+                            {{ teacher_form.subject }}
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="primary-btn">Save Teacher</button>
+                </form>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Teacher ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for teacher in teachers %}
+                        <tr>
+                            <td>{{ teacher.id }}</td>
+                            <td>{{ teacher.name }}</td>
+                            <td>{{ teacher.email }}</td>
+                            <td>{{ teacher.subject }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">No teachers added yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- REPORTS -->
+    <section class="page-section" id="reports">
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Reports</h3>
+            </div>
+
+            <div class="quick-grid">
+                <div class="quick-item">
+                    <h4>Student Report</h4>
+                    <p>Total registered students: <strong>{{ student_count }}</strong></p>
+                </div>
+
+                <div class="quick-item">
+                    <h4>Course Report</h4>
+                    <p>Total available courses: <strong>{{ course_count }}</strong></p>
+                </div>
+
+                <div class="quick-item">
+                    <h4>Payment Report</h4>
+                    <p>Collected amount: <strong>₹{{ total_payments|floatformat:2 }}</strong></p>
+                </div>
+            </div>
+
+            <br>
+            <button class="primary-btn" onclick="window.print()">Print Report</button>
+        </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="page-section" id="settings">
+        <div class="content-card">
+            <div class="card-heading">
+                <h3>Admin Settings</h3>
+            </div>
+
+            <div class="notice">
+                Admin account details are loaded from Django authentication.
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Institute Name</label>
+                    <input type="text" value="Modern Computer Classes" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Admin Username</label>
+                    <input type="text" value="{{ request.user.username }}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Admin Email</label>
+                    <input type="email" value="{{ request.user.email }}" readonly>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+const titles = {
+    dashboard: "Admin Dashboard",
+    students: "Student Management",
+    courses: "Course Management",
+    assignments: "Assignment Management",
+    enrollments: "Enrollments",
+    payments: "Payment Management",
+    certificates: "Certificates",
+    teachers: "Teacher Management",
+    reports: "Reports",
+    settings: "Settings"
+};
+
+document.querySelectorAll(".nav-btn[data-page]").forEach(button => {
+    button.addEventListener("click", () => {
+        showPage(button.dataset.page);
+    });
+});
+
+function showPage(pageId) {
+    document.querySelectorAll(".page-section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.querySelectorAll(".nav-btn").forEach(button => {
+        button.classList.remove("active");
+    });
+
+    const section = document.getElementById(pageId);
+    if (section) {
+        section.classList.add("active");
+    }
+
+    const activeButton = document.querySelector(
+        `.nav-btn[data-page="${pageId}"]`
+    );
+
+    if (activeButton) {
+        activeButton.classList.add("active");
+    }
+
+    document.getElementById("pageTitle").textContent =
+        titles[pageId] || "Admin Dashboard";
+}
+
+function searchStudents() {
+    const search = document.getElementById("studentSearch").value.toLowerCase();
+    const rows = document.querySelectorAll("#studentsTable tr");
+
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(search) ? "" : "none";
+    });
+}
+
+function toggleStudentForm() {
+    const card = document.getElementById("studentFormCard");
+    card.style.display = card.style.display === "none" ? "block" : "none";
+}
+
+function toggleCourseForm() {
+    const card = document.getElementById("courseFormCard");
+    card.style.display = card.style.display === "none" ? "block" : "none";
+}
+
+function toggleAssignmentForm() {
+    const card = document.getElementById("assignmentFormCard");
+    card.style.display = card.style.display === "none" ? "block" : "none";
+}
+
+function toggleTeacherForm() {
+    const card = document.getElementById("teacherFormCard");
+    card.style.display = card.style.display === "none" ? "block" : "none";
+}
+
+// Save ke baad wahi tab khula rahe (#students, #courses, #assignments, #teachers)
+if (window.location.hash) {
+    showPage(window.location.hash.substring(1));
+}
+</script>
+
+</body>
+</html>
