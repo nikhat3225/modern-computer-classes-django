@@ -551,22 +551,25 @@
     </footer>
 
 
+    <!-- DJANGO SUCCESS MESSAGES -->
+
     <div class="toast" id="toast">
-        Message sent successfully!
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
     </div>
 
 
     <script>
         const toast = document.getElementById("toast");
 
-        {% if messages %}
-            toast.textContent = "{% for message in messages %}{{ message }}{% endfor %}";
+        if (toast.textContent.trim() !== "") {
             toast.classList.add("show");
 
             setTimeout(function() {
                 toast.classList.remove("show");
             }, 3000);
-        {% endif %}
+        }
     </script>
 
 </body>
