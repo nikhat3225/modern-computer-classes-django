@@ -31,5 +31,6 @@ urlpatterns = [
     path("admin_dashboard/", views.admin_dashboard, name="admin_dashboard"),
     path("admin_logout/", views.admin_logout, name="admin_logout"),
     path("admin_dashboard/student/add/", views.add_student, name="add_student"),
+    
 
 ]
