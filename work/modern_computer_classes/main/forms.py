@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Student, Course, Assignment, Teacher
+from .models import Student, Course, Assignment, Teacher, Certificate
 
 
 class StudentForm(forms.ModelForm):
@@ -66,4 +66,17 @@ class TeacherForm(forms.ModelForm):
             "name": forms.TextInput(attrs={"placeholder": "Teacher name"}),
             "email": forms.EmailInput(attrs={"placeholder": "Email address"}),
             "subject": forms.TextInput(attrs={"placeholder": "e.g. MS Office"}),
+        }
+
+
+class CertificateForm(forms.ModelForm):
+    class Meta:
+        model = Certificate
+        fields = ["student", "course", "issue_date", "status"]
+        widgets = {
+            "issue_date": forms.DateInput(attrs={"type": "date"}),
+            "status": forms.Select(choices=[
+                ("Issued", "Issued"),
+                ("Pending", "Pending"),
+            ]),
         }
