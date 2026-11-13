@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Student, Course, Assignment, Teacher
-
+from .models import Student, Course, Assignment, Teacher, Contact
 
 class StudentForm(forms.ModelForm):
     username = forms.CharField(
@@ -66,4 +65,18 @@ class TeacherForm(forms.ModelForm):
             "name": forms.TextInput(attrs={"placeholder": "Teacher name"}),
             "email": forms.EmailInput(attrs={"placeholder": "Email address"}),
             "subject": forms.TextInput(attrs={"placeholder": "e.g. MS Office"}),
+        }
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ["name", "email", "subject", "message"]
+        widgets = {
+            "name": forms.TextInput(attrs={"placeholder": "Your Name"}),
+            "email": forms.EmailInput(attrs={"placeholder": "Your Email"}),
+            "subject": forms.TextInput(attrs={"placeholder": "Subject"}),
+            "message": forms.Textarea(attrs={
+                "placeholder": "Your Message",
+                "rows": 4,
+            }),
         }

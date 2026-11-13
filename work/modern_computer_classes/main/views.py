@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.views.decorators.http import require_POST
 
-from .forms import StudentForm, CourseForm, AssignmentForm, TeacherForm
+from .forms import StudentForm, CourseForm, AssignmentForm, TeacherForm, ContactForm
 from .models import (
     Student, Course, Enrollment, Payment,
-    Certificate, Teacher, Assignment,
+    Certificate, Teacher, Assignment, Contact,
 )
 
 
-# ---------- Public pages ----------
+# ------------- Public pages ----------
 
 def home(request):
     return render(request, "index.html")
@@ -24,7 +24,17 @@ def courses(request):
 
 
 def contact(request):
-    return render(request, "contact.html")
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your message has been sent successfully!")
+            return redirect("contact")
+    else:
+        form = ContactForm()
+
+    return render(request, "contact.html", {"form": form})
 
 
 def gallery(request):
@@ -33,7 +43,6 @@ def gallery(request):
 
 def registration(request):
     return render(request, "registration.html")
-
 
 # ---------- Admin ----------
 
@@ -246,3 +255,4 @@ def my_assignments(request):
         "student": student,
         "assignments": assignments,
     })
+
