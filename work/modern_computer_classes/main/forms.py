@@ -1,22 +1,44 @@
+
 from django import forms
 from django.contrib.auth.models import User
 from .models import Student, Course, Assignment, Teacher, Contact
+
 
 class StudentForm(forms.ModelForm):
     username = forms.CharField(
         max_length=150,
         widget=forms.TextInput(attrs={"placeholder": "Login username"}),
     )
+
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"placeholder": "Login password"}),
     )
 
     class Meta:
         model = Student
-        fields = ["name", "email", "course", "status"]
+        fields = [
+            "name",
+            "email",
+            "phone",
+            "gender",
+            "address",
+            "course",
+            "status"
+        ]
+
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Student name"}),
             "email": forms.EmailInput(attrs={"placeholder": "Email address"}),
+            "phone": forms.TextInput(attrs={"placeholder": "Phone number"}),
+            "gender": forms.Select(choices=[
+                ("Male", "Male"),
+                ("Female", "Female"),
+                ("Other", "Other"),
+            ]),
+            "address": forms.Textarea(attrs={
+                "placeholder": "Student address",
+                "rows": 3,
+            }),
             "status": forms.Select(choices=[
                 ("Active", "Active"),
                 ("Inactive", "Inactive"),
@@ -26,8 +48,10 @@ class StudentForm(forms.ModelForm):
 
     def clean_username(self):
         username = self.cleaned_data["username"]
+
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError("This username is already taken.")
+
         return username
 
 
@@ -66,6 +90,7 @@ class TeacherForm(forms.ModelForm):
             "email": forms.EmailInput(attrs={"placeholder": "Email address"}),
             "subject": forms.TextInput(attrs={"placeholder": "e.g. MS Office"}),
         }
+
 
 class ContactForm(forms.ModelForm):
     class Meta:
