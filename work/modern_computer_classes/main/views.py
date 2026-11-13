@@ -42,7 +42,73 @@ def gallery(request):
 
 
 def registration(request):
-    return render(request, "registration.html")
+
+    if request.method == "POST":
+
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        phone = request.POST.get("phone")
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        confirm_password = request.POST.get("confirm_password")
+        gender = request.POST.get("gender")
+        course_id = request.POST.get("course")
+        address = request.POST.get("address")
+
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match!")
+
+        elif User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists!")
+
+        elif not all([name, email, phone, username, password, gender, course_id]):
+            messages.error(request, "Please fill all required fields!")
+
+        elif gender not in ["Male", "Female", "Other"]:
+            messages.error(request, "Please select a valid gender!")
+
+        else:
+
+            course = Course.objects.filter(id=course_id).first()
+
+            if course is None:
+                messages.error(request, "Please select a valid course!")
+
+            else:
+
+                user = User.objects.create_user(
+                    username=username,
+                    email=email,
+                    password=password
+                )
+
+                student = Student.objects.create(
+                    name=name,
+                    email=email,
+                    phone=phone,
+                    gender=gender,
+                    address=address,
+                    user=user,
+                    course=course
+                )
+
+                Enrollment.objects.create(
+                    student=student,
+                    course=course
+                )
+
+                messages.success(
+                    request,
+                    "Registration successful! Please login."
+                )
+
+                return redirect("login")
+
+    courses = Course.objects.all()
+
+    return render(request, "registration.html", {
+        "courses": courses
+    })
 
 # ---------- Admin ----------
 

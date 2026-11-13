@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -14,6 +15,9 @@ class Course(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    gender = models.CharField(max_length=10)
+    address = models.TextField(blank=True)
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, blank=True)
     status = models.CharField(max_length=20, default="Active")
@@ -49,6 +53,7 @@ class Teacher(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=100)
 
+
 class Assignment(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
@@ -58,7 +63,8 @@ class Assignment(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+
 class Contact(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
