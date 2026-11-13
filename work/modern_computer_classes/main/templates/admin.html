@@ -479,7 +479,7 @@ td {
         </div>
     </div>
 
-    <!-- MESSAGES (success / error) -->
+    <!-- MESSAGES -->
     {% if messages %}
         {% for message in messages %}
         <div class="notice">{{ message }}</div>
@@ -827,42 +827,114 @@ td {
     </section>
 
     <!-- ENROLLMENTS -->
-    <section class="page-section" id="enrollments">
-        <div class="content-card">
-            <div class="card-heading">
-                <h3>Course Enrollments</h3>
-            </div>
+    
+<!-- ENROLLMENTS -->
+<section class="page-section" id="enrollments">
 
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Enrollment ID</th>
-                            <th>Student</th>
-                            <th>Course</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for enrollment in enrollments %}
-                        <tr>
-                            <td>{{ enrollment.id }}</td>
-                            <td>{{ enrollment.student.name }}</td>
-                            <td>{{ enrollment.course.name }}</td>
-                            <td>{{ enrollment.enrolled_on }}</td>
-                            <td><span class="status">{{ enrollment.status }}</span></td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="5">No enrollments found.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+    <div class="content-card">
+
+        <div class="card-heading">
+            <h3>Enrollment Management</h3>
+
+            <button class="primary-btn"
+                    onclick="toggleEnrollmentForm()">
+                + Add Enrollment
+            </button>
         </div>
-    </section>
+
+        <!-- ENROLLMENT FORM -->
+        <div id="enrollmentFormCard"
+             style="display:none; margin-bottom:20px;">
+
+            <form method="POST" action="{% url 'add_enrollment' %}">
+                {% csrf_token %}
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Select Student</label>
+                        {{ enrollment_form.student }}
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Course</label>
+                        {{ enrollment_form.course }}
+                    </div>
+
+                    <div class="form-group">
+                        <label>Enrollment Status</label>
+                        {{ enrollment_form.status }}
+                    </div>
+
+                </div>
+
+                <br>
+
+                <button type="submit" class="primary-btn">
+                    Save Enrollment
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="notice">
+            Manage student course enrollments and enrollment status.
+        </div>
+
+        <!-- ENROLLMENT TABLE -->
+        <div class="table-wrap">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Enrollment ID</th>
+                        <th>Student</th>
+                        <th>Course</th>
+                        <th>Enrollment Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for enrollment in enrollments %}
+
+                    <tr>
+                        <td>{{ enrollment.id }}</td>
+
+                        <td>{{ enrollment.student.name }}</td>
+
+                        <td>{{ enrollment.course.name }}</td>
+
+                        <td>{{ enrollment.enrolled_on }}</td>
+
+                        <td>
+                            <span class="status">
+                                {{ enrollment.status }}
+                            </span>
+                        </td>
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="5">
+                            No enrollments found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
 
     <!-- PAYMENTS -->
     <section class="page-section" id="payments">
@@ -907,10 +979,51 @@ td {
         <div class="content-card">
             <div class="card-heading">
                 <h3>Certificate Management</h3>
+
                 <button class="primary-btn"
-                        onclick="alert('Certificate generation will be connected next.')">
+                        onclick="toggleCertificateForm()">
                     + Generate Certificate
                 </button>
+            </div>
+
+            <!-- GENERATE CERTIFICATE FORM -->
+            <div id="certificateFormCard"
+                 style="display:none; margin-bottom:20px;">
+
+                <form method="POST" action="{% url 'add_certificate' %}">
+                    {% csrf_token %}
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>Select Student</label>
+                            {{ certificate_form.student }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select Course</label>
+                            {{ certificate_form.course }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Issue Date</label>
+                            {{ certificate_form.issue_date }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Certificate Status</label>
+                            {{ certificate_form.status }}
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <button type="submit" class="primary-btn">
+                        Generate Certificate
+                    </button>
+
+                </form>
             </div>
 
             <div class="notice">
@@ -935,7 +1048,11 @@ td {
                             <td>{{ certificate.student.name }}</td>
                             <td>{{ certificate.course.name }}</td>
                             <td>{{ certificate.issue_date|default:"--" }}</td>
-                            <td><span class="status">{{ certificate.status }}</span></td>
+                            <td>
+                                <span class="status {% if certificate.status == 'Pending' %}pending{% endif %}">
+                                    {{ certificate.status }}
+                                </span>
+                            </td>
                         </tr>
                         {% empty %}
                         <tr>
@@ -1103,6 +1220,7 @@ function showPage(pageId) {
     });
 
     const section = document.getElementById(pageId);
+
     if (section) {
         section.classList.add("active");
     }
@@ -1149,7 +1267,21 @@ function toggleTeacherForm() {
     card.style.display = card.style.display === "none" ? "block" : "none";
 }
 
-// Save ke baad wahi tab khula rahe (#students, #courses, #assignments, #teachers)
+/* CERTIFICATE FORM */
+function toggleCertificateForm() {
+    const card = document.getElementById("certificateFormCard");
+
+    card.style.display =
+        card.style.display === "none" ? "block" : "none";
+}
+/* ENROLLMENT FORM */
+function toggleEnrollmentForm() {
+    const card = document.getElementById("enrollmentFormCard");
+
+    card.style.display =
+        card.style.display === "none" ? "block" : "none";
+}
+// Save ke baad wahi tab khula rahe
 if (window.location.hash) {
     showPage(window.location.hash.substring(1));
 }

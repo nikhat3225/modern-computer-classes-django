@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Student, Course, Assignment, Teacher, Certificate
+from .models import Student, Course, Assignment, Teacher, Certificate, Enrollment
 
 
 class StudentForm(forms.ModelForm):
@@ -80,3 +80,11 @@ class CertificateForm(forms.ModelForm):
                 ("Pending", "Pending"),
             ]),
         }
+
+        #enrollment form
+        from .models import Enrollment
+
+class EnrollmentForm(forms.ModelForm):
+    class Meta:
+        model = Enrollment
+        fields = ["student", "course", "status"]
