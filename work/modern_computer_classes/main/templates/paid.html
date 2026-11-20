@@ -1,0 +1,539 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Enrollment | Modern Computer Classes</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg,#06172f,#083b63,#087d9e,#0bb9df);
+    color: #102c4d;
+}
+
+/* HEADER */
+header {
+    padding: 18px 7%;
+    background: rgba(3,18,40,.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(85,221,255,.3);
+    box-shadow: 0 5px 25px rgba(0,0,0,.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #55ddff;
+}
+
+.brand h2 {
+    color: white;
+    font-size: 20px;
+}
+
+.brand span {
+    display: block;
+    color: #55ddff;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #55ddff;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    color: white;
+    padding: 45px 20px 25px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    font-size: 14px;
+    opacity: .9;
+}
+
+/* ENROLLMENT BOX */
+.enroll-container {
+    width: 92%;
+    max-width: 650px;
+    margin: 15px auto 60px;
+    background: rgba(255,255,255,.97);
+    border-radius: 25px;
+    padding: 35px;
+    box-shadow: 0 18px 45px rgba(0,0,0,.25);
+    animation: slideUp .8s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.enroll-icon {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    color: white;
+    background: linear-gradient(135deg,#087da0,#0bc3e8);
+    box-shadow: 0 8px 22px rgba(11,195,232,.35);
+}
+
+.enroll-container h2 {
+    text-align: center;
+    color: #102c4d;
+    font-size: 27px;
+    margin-bottom: 7px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #68798a;
+    font-size: 13px;
+    margin-bottom: 28px;
+}
+
+/* DJANGO MESSAGES */
+.messages {
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 12px 15px;
+    border-radius: 9px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.message.success {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.message.warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.message.info {
+    background: #cff4fc;
+    color: #055160;
+}
+
+/* FORM */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 7px;
+    color: #102c4d;
+}
+
+input, select {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #d7e1e8;
+    border-radius: 10px;
+    background: #f8fbfd;
+    font-family: Poppins, sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: .3s;
+}
+
+input:focus, select:focus {
+    border-color: #0bb8df;
+    box-shadow: 0 0 0 3px rgba(11,184,223,.12);
+    background: white;
+}
+
+input[readonly] {
+    color: #536879;
+    background: #edf5f8;
+    cursor: not-allowed;
+}
+
+/* COURSE SUMMARY */
+.course-summary {
+    background: linear-gradient(135deg,#e8f9fd,#f5fcff);
+    border: 1px solid #bcecf6;
+    border-radius: 15px;
+    padding: 18px;
+}
+
+.course-summary h3 {
+    color: #087da0;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    font-size: 13px;
+    padding: 7px 0;
+    color: #536879;
+}
+
+.summary-row strong {
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.total {
+    border-top: 1px solid #cce8ee;
+    margin-top: 8px;
+    padding-top: 12px;
+    font-size: 17px;
+    font-weight: 800;
+    color: #087da0;
+}
+
+/* PAYMENT */
+.payment-title {
+    margin-bottom: 10px;
+}
+
+.payment-options {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+}
+
+.payment-option {
+    cursor: pointer;
+}
+
+.payment-option input {
+    display: none;
+}
+
+.payment-box {
+    padding: 13px 7px;
+    border: 2px solid #e0e7eb;
+    border-radius: 12px;
+    text-align: center;
+    background: #f8fbfd;
+    font-size: 12px;
+    transition: .3s;
+}
+
+.payment-box:hover {
+    border-color: #0bb9df;
+    transform: translateY(-2px);
+}
+
+.payment-option input:checked + .payment-box {
+    border-color: #087da0;
+    background: #e8f9fd;
+    color: #087da0;
+    box-shadow: 0 5px 15px rgba(8,125,160,.15);
+}
+
+/* BUTTON */
+.pay-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 11px;
+    background: linear-gradient(90deg,#087da0,#0bc3e8);
+    color: white;
+    font-family: Poppins, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .3s;
+    box-shadow: 0 7px 20px rgba(8,125,160,.25);
+}
+
+.pay-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 11px 25px rgba(8,125,160,.35);
+}
+
+.secure-note {
+    text-align: center;
+    margin-top: 14px;
+    color: #718392;
+    font-size: 11px;
+}
+
+/* FOOTER */
+footer {
+    background: linear-gradient(135deg,#04152d,#062d4d,#064d66);
+    color: white;
+    text-align: center;
+    padding: 25px;
+    font-size: 13px;
+}
+
+footer span {
+    color: #55ddff;
+}
+
+/* RESPONSIVE */
+@media(max-width:700px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .enroll-container {
+        padding: 25px 20px;
+    }
+
+    .payment-options {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="brand">
+        <img src="{% static 'images/logo.jpg' %}"
+             alt="Modern Computer Classes Logo">
+
+        <div>
+            <h2>Modern Computer Classes</h2>
+            <span>LEARN • GROW • INNOVATE</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'courses' %}">Courses</a>
+        <a href="{% url 'contact' %}">Contact Us</a>
+        <a href="{% url 'student_dashboard' %}">Dashboard</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>🎓 Enroll Now</h1>
+    <p>Start learning today and build your digital skills.</p>
+</section>
+
+<!-- ENROLLMENT FORM -->
+<div class="enroll-container">
+
+    <div class="enroll-icon">🎓</div>
+
+    <h2>Course Enrollment</h2>
+
+    <p class="subtitle">
+        Complete the form below to enroll in your selected course.
+    </p>
+
+    <!-- DJANGO MESSAGES -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST"
+          action="{% url 'enroll_course' course.id %}">
+
+        {% csrf_token %}
+
+        <!-- STUDENT DETAILS -->
+        <div>
+            <label>Full Name</label>
+            <input type="text"
+                   value="{{ student.name }}"
+                   readonly>
+        </div>
+
+        <div>
+            <label>Email Address</label>
+            <input type="email"
+                   value="{{ request.user.email }}"
+                   readonly>
+        </div>
+
+        <!-- SELECTED COURSE -->
+        <div class="course-summary">
+
+            <h3>📚 Selected Course</h3>
+
+            <div class="summary-row">
+                <span>Course</span>
+                <strong>{{ course.name }}</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Duration</span>
+                <strong>
+                    {% if course.duration %}
+                        {{ course.duration }}
+                    {% else %}
+                        As per course schedule
+                    {% endif %}
+                </strong>
+            </div>
+
+            <div class="summary-row total">
+                <span>Course Fee</span>
+                <strong>
+                    {% if course.fee %}
+                        ₹{{ course.fee }}
+                    {% elif course.price %}
+                        ₹{{ course.price }}
+                    {% else %}
+                        Contact Admin
+                    {% endif %}
+                </strong>
+            </div>
+
+        </div>
+
+        <!-- PAYMENT METHOD -->
+        <div>
+            <label class="payment-title">
+                Preferred Payment Method
+            </label>
+
+            <div class="payment-options">
+
+                <label class="payment-option">
+                    <input type="radio"
+                           name="payment_method"
+                           value="Cash"
+                           required>
+                    <div class="payment-box">💵 Cash</div>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio"
+                           name="payment_method"
+                           value="GPay">
+                    <div class="payment-box">📱 GPay</div>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio"
+                           name="payment_method"
+                           value="Card">
+                    <div class="payment-box">💳 Card</div>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio"
+                           name="payment_method"
+                           value="UPI">
+                    <div class="payment-box">🔗 UPI</div>
+                </label>
+
+            </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <button type="submit" class="pay-btn">
+            Submit Enrollment 🚀
+        </button>
+
+        <p class="secure-note">
+            🔒 Your enrollment information is kept secure.
+            Payment confirmation will be handled separately.
+        </p>
+
+    </form>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    © 2026
+    <span>Modern Computer Classes</span>
+    |
+    Learn • Grow • Innovate
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Hub | Modern Computer Classes</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary: #0759a6;
+    --dark: #071b35;
+    --cyan: #08b9d5;
+    --light: #f3f8fc;
+    --text: #26364a;
+    --muted: #718096;
+    --white: #ffffff;
+    --border: #e4edf5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--light);
+    color: var(--text);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button, input {
+    font: inherit;
+}
+
+/* ========== HEADER (from login.html) ========== */
+header {
+    padding: 18px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(3, 18, 40, 0.95);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #55ddff;
+    box-shadow: 0 0 15px rgba(85,221,255,0.35);
+}
+
+.brand h1 {
+    font-size: 22px;
+    color: white;
+}
+
+.brand p {
+    margin-top: 3px;
+    color: #63ddff;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-links a {
+    font-size: 13px;
+    font-weight: 600;
+    color: #d0e2f4;
+    transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links .active {
+    color: #55ddff;
+}
+
+.nav-btn {
+    background: #08b9d5;
+    color: #06162a !important;
+    padding: 11px 19px;
+    border-radius: 7px;
+    font-weight: 700;
+}
+
+/* HERO */
+.hero {
+    background:
+        radial-gradient(circle at 85% 20%, rgba(8,185,213,.25), transparent 28%),
+        linear-gradient(120deg, #06162c, #0759a6);
+    padding: 90px 7% 110px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 720px;
+    position: relative;
+    z-index: 2;
+}
+
+.eyebrow {
+    color: #65e3ef;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    display: inline-block;
+    margin-bottom: 22px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 5vw, 60px);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+}
+
+.hero h1 span {
+    color: #55dbea;
+}
+
+.hero p {
+    color: #d0e2f4;
+    font-size: 15px;
+    line-height: 1.9;
+    max-width: 570px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.outline-btn {
+    padding: 14px 23px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-block;
+    transition: .3s;
+}
+
+.primary-btn {
+    background: var(--cyan);
+    color: #06233b;
+}
+
+.primary-btn:hover {
+    background: white;
+    transform: translateY(-3px);
+}
+
+.outline-btn {
+    border: 1px solid #8ab3d5;
+    color: white;
+}
+
+.outline-btn:hover {
+    background: white;
+    color: var(--primary);
+}
+
+.hero-art {
+    position: absolute;
+    right: 9%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 280px;
+    height: 280px;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 115px;
+    background: rgba(255,255,255,.06);
+    box-shadow: 0 20px 60px rgba(0,0,0,.15);
+    transform: translateY(-50%) rotate(5deg);
+}
+
+/* COMMON */
+.container {
+    width: 86%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section {
+    padding: 75px 0;
+}
+
+.section-heading {
+    margin-bottom: 30px;
+}
+
+.section-heading small {
+    color: var(--primary);
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    font-size: 11px;
+}
+
+.section-heading h2 {
+    color: var(--dark);
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* SEARCH */
+.search-area {
+    margin-top: -32px;
+    position: relative;
+    z-index: 5;
+}
+
+.search-box {
+    background: white;
+    padding: 13px 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.09);
+    max-width: 750px;
+    border: 1px solid var(--border);
+}
+
+.search-icon {
+    font-size: 21px;
+    color: var(--primary);
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+    min-width: 0;
+}
+
+.search-box button {
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 13px 23px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+/* CATEGORY FILTER */
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 11px;
+    margin: 25px 0 35px;
+}
+
+.category-btn {
+    border: 1px solid var(--border);
+    background: white;
+    color: #53657a;
+    padding: 11px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: .25s;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* FEATURED SECTION */
+.featured-card {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 35px rgba(15,50,85,.05);
+}
+
+.featured-visual {
+    min-height: 320px;
+    background:
+        radial-gradient(circle at 70% 25%, #19c6d7, transparent 30%),
+        linear-gradient(135deg, #071b35, #0759a6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 110px;
+}
+
+.featured-content {
+    padding: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.featured-content .tag {
+    color: var(--primary);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 17px;
+}
+
+.featured-content h3 {
+    font-size: 27px;
+    line-height: 1.4;
+    color: var(--dark);
+    margin-bottom: 14px;
+}
+
+.featured-content p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.read-link {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 800;
+    margin-top: 23px;
+    display: inline-block;
+}
+
+/* RESOURCE CARDS */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 23px;
+}
+
+.content-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.content-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(16,53,90,.10);
+}
+
+.card-visual {
+    height: 165px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 65px;
+    color: white;
+}
+
+.blue { background: linear-gradient(135deg,#0759a6,#08b9d5); }
+.purple { background: linear-gradient(135deg,#463b9a,#9276e7); }
+.green { background: linear-gradient(135deg,#087d65,#36c69b); }
+.orange { background: linear-gradient(135deg,#b45a19,#f0a044); }
+.navy { background: linear-gradient(135deg,#071b35,#315a88); }
+.pink { background: linear-gradient(135deg,#a43e80,#e67bb2); }
+
+.card-body {
+    padding: 23px;
+}
+
+.card-category {
+    font-size: 10px;
+    color: var(--primary);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-body h3 {
+    color: var(--dark);
+    font-size: 17px;
+    margin: 13px 0;
+}
+
+.card-body p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.9;
+    min-height: 48px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    margin-top: 19px;
+    padding-top: 15px;
+}
+
+.card-footer span {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.card-footer a {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.no-results {
+    display: none;
+    padding: 35px;
+    text-align: center;
+    color: var(--muted);
+    background: white;
+    border-radius: 10px;
+}
+
+/* LEARNING BENEFITS */
+.benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.benefit-card {
+    background: white;
+    padding: 27px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.benefit-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #e8f7fc;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 18px;
+}
+
+.benefit-card h3 {
+    font-size: 16px;
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.benefit-card p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+/* QUIZ */
+.quiz-section {
+    background: linear-gradient(120deg,#071b35,#0759a6);
+    padding: 65px 0;
+}
+
+.quiz-box {
+    max-width: 750px;
+    margin: auto;
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.15);
+}
+
+.quiz-label {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.quiz-box h2 {
+    color: var(--dark);
+    font-size: 26px;
+    margin: 12px 0;
+}
+
+.quiz-box p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.question {
+    margin-top: 25px;
+    font-weight: 700;
+    color: var(--dark);
+    font-size: 16px;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.quiz-option {
+    border: 1px solid var(--border);
+    background: #f7fafc;
+    padding: 14px;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text);
+    transition: .2s;
+}
+
+.quiz-option:hover {
+    border-color: var(--primary);
+    background: #eaf5fc;
+}
+
+.quiz-option.correct {
+    background: #e2f8ed;
+    border-color: #2eaa70;
+}
+
+.quiz-option.wrong {
+    background: #fff0f0;
+    border-color: #dc6565;
+}
+
+.quiz-result {
+    margin-top: 18px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.quiz-next {
+    margin-top: 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 700;
+    display: none;
+}
+
+/* ========== FOOTER (from login.html) ========== */
+.footer {
+    background: linear-gradient(135deg, #04152d, #062d4d, #064d66);
+    color: white;
+    padding: 40px 7% 18px;
+    border-top: 1px solid rgba(85,221,255,0.2);
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.15);
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 45px;
+}
+
+.footer-brand h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.footer-brand .tagline {
+    color: #55ddff;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+}
+
+.footer-brand .description {
+    color: #a9bbc8;
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 330px;
+}
+
+.footer-column h3 {
+    font-size: 15px;
+    margin-bottom: 15px;
+    color: #ffffff;
+    position: relative;
+}
+
+.footer-column h3::after {
+    content: "";
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: #55ddff;
+    margin-top: 7px;
+}
+
+.footer-column a {
+    display: block;
+    width: fit-content;
+    margin-bottom: 10px;
+    color: #b9cad6;
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.footer-column a:hover {
+    color: #55ddff;
+    transform: translateX(5px);
+}
+
+.footer-bottom {
+    max-width: 1100px;
+    margin: 30px auto 0;
+    padding-top: 17px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: #7f95a5;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.footer-bottom .future-text {
+    color: #55cfea;
+    margin-top: 3px;
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px) {
+    .cards-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .hero-art {
+        right: 4%;
+        width: 190px;
+        height: 190px;
+        font-size: 80px;
+    }
+}
+
+@media(max-width: 650px) {
+    header {
+        padding: 15px 5%;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .nav-links {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .hero {
+        padding: 65px 5%;
+    }
+
+    .hero-art {
+        display: none;
+    }
+
+    .featured-card {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-visual {
+        min-height: 190px;
+    }
+
+    .featured-content {
+        padding: 25px;
+    }
+
+    .cards-grid,
+    .benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .quiz-options {
+        grid-template-columns: 1fr;
+    }
+
+    .quiz-box {
+        padding: 23px;
+    }
+
+    .section {
+        padding: 50px 0;
+    }
+
+    .search-box button {
+        padding: 12px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        text-align: center;
+    }
+
+    .footer-brand .description {
+        margin: auto;
+    }
+
+    .footer-column a {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .footer-column h3::after {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ========== HEADER (from login.html) ========== -->
+<header>
+    <div class="brand">
+        <img src="{% static 'images/logo.jpg' %}" alt="Modern Computer Classes Logo">
+        <div>
+            <h1>Modern Computer Classes</h1>
+            <p>LEARN • GROW • INNOVATE</p>
+        </div>
+    </div>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'courses' %}">Courses</a>
+        <a href="{% url 'gallery' %}" class="active">Tech Hub</a>
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'login' %}" class="nav-btn">Student Login</a>
+    </div>
+</header>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-content">
+        <span class="eyebrow">MODERN COMPUTER CLASSES • TECH HUB</span>
+        <h1>
+            Discover. Learn.<br>
+            <span>Innovate with Technology.</span>
+        </h1>
+        <p>
+            Your digital learning space to explore programming,
+            artificial intelligence, computer knowledge and
+            the latest technology trends.
+        </p>
+        <div class="hero-actions">
+            <a href="#resources" class="primary-btn">Explore Resources →</a>
+            <a href="#quiz" class="outline-btn">Take a Quiz</a>
+        </div>
+    </div>
+    <div class="hero-art">💻</div>
+</header>
+
+<!-- SEARCH -->
+<div class="container search-area">
+    <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="searchInput"
+        placeholder="Search tutorials, programming, AI, computer tips...">
+        <button type="button" id="searchBtn">Search</button>
+    </div>
+</div>
+
+<!-- FEATURED -->
+<section class="section">
+<div class="container">
+    <div class="section-heading">
+        <small>FEATURED LEARNING</small>
+        <h2>Welcome to Your Tech Hub</h2>
+        <p>Learn new concepts, discover useful tools and develop practical skills.</p>
+    </div>
+
+    <div class="featured-card">
+        <div class="featured-visual">🚀</div>
+        <div class="featured-content">
+            <span class="tag">FEATURED RESOURCE</span>
+            <h3>Turn Your Ideas Into Real Projects</h3>
+            <p>
+                Start exploring the world of coding and technology.
+                Learn programming concepts, improve problem-solving
+                skills and create your own digital projects.
+            </p>
+            <a href="#resources" class="read-link">Start Exploring →</a>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- RESOURCES -->
+<section class="section" id="resources" style="padding-top:0;">
+<div class="container">
+    <div class="section-heading">
+        <small>EXPLORE AND LEARN</small>
+        <h2>Learning Resources</h2>
+        <p>Choose a topic and start building your knowledge.</p>
+    </div>
+
+    <div class="category-list">
+        <button class="category-btn active" data-filter="all">All Resources</button>
+        <button class="category-btn" data-filter="programming">Programming</button>
+        <button class="category-btn" data-filter="ai">Artificial Intelligence</button>
+        <button class="category-btn" data-filter="computer">Computer Tips</button>
+        <button class="category-btn" data-filter="security">Cyber Security</button>
+        <button class="category-btn" data-filter="projects">Projects</button>
+    </div>
+
+    <div class="cards-grid" id="resourceGrid">
+        <article class="content-card" data-category="programming">
+            <div class="card-visual blue">⌨️</div>
+            <div class="card-body">
+                <span class="card-category">Programming</span>
+                <h3>Python Programming</h3>
+                <p>Learn variables, loops, functions, conditions and the basics of Python programming.</p>
+                <div class="card-footer">
+                    <span>Beginner Level</span>
+                    <a href="{% url 'courses' %}">Explore →</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="content-card" data-category="programming">
+            <div class="card-visual purple">🌐</div>
+            <div class="card-body">
+                <span class="card-category">Web Development</span>
+                <h3>HTML & CSS</h3>
+                <p>Understand website structure, styling, layouts and responsive web design.</p>
+                <div class="card-footer">
+                    <span>Web Skills</span>
+                    <a href="{% url 'courses' %}">Explore →</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="content-card" data-category="ai">
+            <div class="card-visual green">🤖</div>
+            <div class="card-body">
+                <span class="card-category">Artificial Intelligence</span>
+                <h3>Explore Artificial Intelligence</h3>
+                <p>Discover AI concepts, real-world applications and useful AI learning tools.</p>
+                <div class="card-footer">
+                    <span>Technology</span>
+                    <a href="#benefits">Explore →</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="content-card" data-category="computer">
+            <div class="card-visual orange">🖥️</div>
+            <div class="card-body">
+                <span class="card-category">Computer Knowledge</span>
+                <h3>Computer Tips & Tricks</h3>
+                <p>Discover useful keyboard shortcuts, Windows tips and productivity techniques.</p>
+                <div class="card-footer">
+                    <span>Practical Skills</span>
+                    <a href="#benefits">Explore →</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="content-card" data-category="security">
+            <div class="card-visual navy">🔐</div>
+            <div class="card-body">
+                <span class="card-category">Cyber Security</span>
+                <h3>Digital Safety</h3>
+                <p>Understand online privacy, phishing awareness and safe internet practices.</p>
+                <div class="card-footer">
+                    <span>Awareness</span>
+                    <a href="#benefits">Explore →</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="content-card" data-category="projects">
+            <div class="card-visual pink">🚀</div>
+            <div class="card-body">
+                <span class="card-category">Student Projects</span>
+                <h3>Creative Project Ideas</h3>
+                <p>Explore mini project ideas and improve your practical programming knowledge.</p>
+                <div class="card-footer">
+                    <span>Hands-on Learning</span>
+                    <a href="{% url 'courses' %}">Explore →</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <div class="no-results" id="noResults">
+        <h3>No Resources Found</h3>
+        <p>Try another search keyword or category.</p>
+    </div>
+</div>
+</section>
+
+<!-- WHY TECH HUB -->
+<section class="section" id="benefits">
+<div class="container">
+    <div class="section-heading">
+        <small>LEARN BETTER</small>
+        <h2>Why Explore Tech Hub?</h2>
+        <p>A place to develop knowledge, creativity and practical computer skills.</p>
+    </div>
+
+    <div class="benefits">
+        <div class="benefit-card">
+            <div class="benefit-icon">📚</div>
+            <h3>Easy Learning</h3>
+            <p>Explore computer concepts and technology topics in a simple learning environment.</p>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">💡</div>
+            <h3>Practical Knowledge</h3>
+            <p>Improve your understanding through programming concepts and project ideas.</p>
+        </div>
+        <div class="benefit-card">
+            <div class="benefit-icon">🎯</div>
+            <h3>Improve Your Skills</h3>
+            <p>Develop digital awareness, logical thinking and problem-solving skills.</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- INTERACTIVE QUIZ -->
+<section class="quiz-section" id="quiz">
+<div class="container">
+    <div class="quiz-box">
+        <span class="quiz-label">TEST YOUR KNOWLEDGE</span>
+        <h2>Quick Computer Quiz</h2>
+        <p>Answer the question and check your computer knowledge.</p>
+
+        <div class="question" id="question">
+            1. Which language is mainly used to structure web pages?
+        </div>
+
+        <div class="quiz-options" id="quizOptions">
+            <button class="quiz-option" data-answer="wrong">Python</button>
+            <button class="quiz-option" data-answer="correct">HTML</button>
+            <button class="quiz-option" data-answer="wrong">SQL</button>
+            <button class="quiz-option" data-answer="wrong">C++</button>
+        </div>
+
+        <div class="quiz-result" id="quizResult"></div>
+        <button class="quiz-next" id="quizNext">Next Question →</button>
+    </div>
+</div>
+</section>
+
+<!-- ========== FOOTER (from login.html) ========== -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <h2>Modern Computer Classes</h2>
+            <p class="tagline">LEARN • GROW • INNOVATE</p>
+            <p class="description">
+                Empowering students with practical digital
+                skills and helping them build a brighter
+                technology-driven future.
+            </p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'courses' %}">Courses</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'registration' %}">Registration</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Connect With Us</h3>
+            <a href="https://www.instagram.com/" target="_blank">📸 Instagram</a>
+            <a href="https://www.facebook.com/" target="_blank">📘 Facebook</a>
+            <a href="mailto:moderncomputer@example.com">✉️ Email Us</a>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Modern Computer Classes • All Rights Reserved</p>
+        <p class="future-text">Learn today. Build tomorrow. 🚀</p>
+    </div>
+</footer>
+
+<script>
+/* SEARCH AND CATEGORY FILTER */
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
+const cards = document.querySelectorAll(".content-card");
+const categoryButtons = document.querySelectorAll(".category-btn");
+const noResults = document.getElementById("noResults");
+
+let activeCategory = "all";
+
+function filterResources() {
+    const searchText = searchInput.value.toLowerCase().trim();
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const category = card.dataset.category;
+        const text = card.innerText.toLowerCase();
+        const categoryMatch = activeCategory === "all" || category === activeCategory;
+        const searchMatch = text.includes(searchText);
+        const visible = categoryMatch && searchMatch;
+        card.style.display = visible ? "" : "none";
+        if (visible) visibleCount++;
+    });
+
+    noResults.style.display = visibleCount === 0 ? "block" : "none";
+}
+
+categoryButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        categoryButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        activeCategory = button.dataset.filter;
+        filterResources();
+    });
+});
+
+searchInput.addEventListener("input", filterResources);
+searchBtn.addEventListener("click", filterResources);
+
+/* COMPUTER QUIZ */
+const quizQuestions = [
+    {
+        question: "1. Which language is mainly used to structure web pages?",
+        options: ["Python", "HTML", "SQL", "C++"],
+        answer: 1
+    },
+    {
+        question: "2. Which language is commonly used for styling websites?",
+        options: ["CSS", "Java", "C", "PHP"],
+        answer: 0
+    },
+    {
+        question: "3. What does CPU stand for?",
+        options: [
+            "Computer Personal Unit",
+            "Central Processing Unit",
+            "Control Program Utility",
+            "Central Power Unit"
+        ],
+        answer: 1
+    },
+    {
+        question: "4. Which of these is a programming language?",
+        options: ["HTML", "CSS", "Python", "HTTP"],
+        answer: 2
+    },
+    {
+        question: "5. Which technology is associated with Artificial Intelligence?",
+        options: ["Machine Learning", "MS Paint", "Notepad", "Calculator"],
+        answer: 0
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+const questionElement = document.getElementById("question");
+const optionsElement = document.getElementById("quizOptions");
+const resultElement = document.getElementById("quizResult");
+const nextButton = document.getElementById("quizNext");
+
+function loadQuestion() {
+    answered = false;
+    const q = quizQuestions[currentQuestion];
+    questionElement.textContent = q.question;
+    optionsElement.innerHTML = "";
+    resultElement.textContent = "";
+    nextButton.style.display = "none";
+
+    q.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.className = "quiz-option";
+        button.textContent = option;
+        button.addEventListener("click", () => {
+            checkAnswer(index, button);
+        });
+        optionsElement.appendChild(button);
+    });
+}
+
+function checkAnswer(selected, selectedButton) {
+    if (answered) return;
+    answered = true;
+
+    const correctAnswer = quizQuestions[currentQuestion].answer;
+    const allOptions = document.querySelectorAll(".quiz-option");
+
+    allOptions.forEach((button, index) => {
+        button.disabled = true;
+        if (index === correctAnswer) {
+            button.classList.add("correct");
+        }
+    });
+
+    if (selected === correctAnswer) {
+        score++;
+        resultElement.textContent = "Correct Answer! Well Done.";
+    } else {
+        selectedButton.classList.add("wrong");
+        resultElement.textContent =
+            "Incorrect. The correct answer is " +
+            quizQuestions[currentQuestion].options[correctAnswer];
+    }
+
+    nextButton.style.display = "inline-block";
+}
+
+nextButton.addEventListener("click", () => {
+    currentQuestion++;
+    if (currentQuestion < quizQuestions.length) {
+        loadQuestion();
+    } else {
+        questionElement.textContent = "Quiz Completed!";
+        optionsElement.innerHTML = "";
+        resultElement.textContent = "Your Score: " + score + " / " + quizQuestions.length;
+        nextButton.textContent = "Try Again";
+        nextButton.style.display = "inline-block";
+
+        nextButton.onclick = () => {
+            currentQuestion = 0;
+            score = 0;
+            nextButton.textContent = "Next Question →";
+            nextButton.onclick = null;
+            loadQuestion();
+        };
+    }
+});
+
+loadQuestion();
+</script>
+
+</body>
+</html>

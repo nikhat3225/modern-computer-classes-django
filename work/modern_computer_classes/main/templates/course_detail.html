@@ -1,0 +1,428 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ course.name }} | Modern Computer Classes</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background: #f5f8fc;
+    color: #18314f;
+}
+
+.navbar {
+    background: #071d35;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    color: white;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.logo span {
+    color: #00d4f5;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    color: #e3edf6;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #00d4f5;
+}
+
+.hero {
+    background: linear-gradient(120deg, #071d35, #075579);
+    color: white;
+    padding: 65px 7%;
+}
+
+.breadcrumb {
+    color: #b8d5e6;
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+.breadcrumb a {
+    color: #00d4f5;
+    text-decoration: none;
+}
+
+.hero h1 {
+    font-size: clamp(30px, 5vw, 43px);
+    margin-bottom: 15px;
+}
+
+.hero p {
+    max-width: 650px;
+    color: #d4e5f0;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.course-meta {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    color: #d9edf7;
+    font-size: 14px;
+}
+
+.course-meta span {
+    color: #00d4f5;
+    font-weight: 700;
+}
+
+.main-container {
+    padding: 55px 7%;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+    gap: 30px;
+    align-items: start;
+}
+
+.content-card,
+.enroll-card {
+    background: white;
+    border: 1px solid #e5edf4;
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 5px 18px rgba(15, 45, 75, .04);
+}
+
+.content-card h2 {
+    color: #092e50;
+    font-size: 23px;
+    margin-bottom: 17px;
+}
+
+.content-card p {
+    color: #687c91;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.topic-list {
+    list-style: none;
+}
+
+.topic-list li {
+    padding: 13px 0;
+    border-bottom: 1px solid #edf1f5;
+    color: #526a80;
+    font-size: 14px;
+}
+
+.topic-list li::before {
+    content: "✓";
+    color: #0799bd;
+    font-weight: bold;
+    margin-right: 12px;
+}
+
+.enroll-card {
+    position: sticky;
+    top: 20px;
+}
+
+.enroll-card .label {
+    color: #0788ad;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.price {
+    font-size: 32px;
+    color: #092e50;
+    font-weight: 800;
+    margin: 12px 0;
+}
+
+.enroll-card .description {
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.enroll-btn {
+    display: block;
+    width: 100%;
+    border: none;
+    background: #0785ad;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 14px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.enroll-btn:hover {
+    background: #071d35;
+}
+
+.enroll-btn:disabled {
+    background: #15966b;
+    cursor: not-allowed;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 17px;
+    color: #0785ad;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.message {
+    padding: 12px 7%;
+    background: #e8f7fc;
+    color: #075579;
+    font-size: 14px;
+}
+
+footer {
+    background: #071d35;
+    text-align: center;
+    color: #d5e2ed;
+    padding: 25px;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+footer span {
+    color: #00d4f5;
+}
+
+@media(max-width: 800px) {
+    .main-container {
+        grid-template-columns: 1fr;
+    }
+
+    .enroll-card {
+        position: static;
+    }
+}
+
+@media(max-width: 550px) {
+    .navbar {
+        justify-content: center;
+    }
+
+    .nav-links {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 45px 6%;
+    }
+
+    .main-container {
+        padding: 35px 5%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">MODERN <span>COMPUTER CLASSES</span></div>
+
+    <nav class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'courses' %}">Courses</a>
+        <a href="{% url 'gallery' %}">Tech Hub</a>
+        <a href="{% url 'contact' %}">Contact</a>
+
+        {% if user.is_authenticated %}
+            {% if user.is_staff %}
+                <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+            {% else %}
+                <a href="{% url 'student_dashboard' %}">Dashboard</a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+</header>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="message">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<section class="hero">
+
+    <div class="breadcrumb">
+        <a href="{% url 'courses' %}">Courses</a> / {{ course.name }}
+    </div>
+
+    <h1>{{ course.name }}</h1>
+
+    <p>
+        Develop your computer skills with structured learning,
+        practical training and expert guidance at Modern Computer Classes.
+    </p>
+
+    <div class="course-meta">
+        <div>Duration: <span>{{ course.duration }}</span></div>
+        <div>Learning: <span>Practical + Theory</span></div>
+        <div>Mode: <span>Computer Training</span></div>
+    </div>
+
+</section>
+
+<main class="main-container">
+
+    <div class="left-content">
+
+        <section class="content-card">
+            <h2>About This Course</h2>
+            <p>
+                This course is designed to help students understand
+                {{ course.name }} from the basics to practical applications.
+                Students will learn important concepts and develop
+                useful computer skills through guided practice.
+            </p>
+        </section>
+
+        <section class="content-card">
+            <h2>Course Syllabus</h2>
+
+            <ul class="topic-list">
+                <li>Introduction and Basic Concepts</li>
+                <li>Understanding the Course Fundamentals</li>
+                <li>Practical Training and Exercises</li>
+                <li>Working on Real-World Examples</li>
+                <li>Assignments and Practice Activities</li>
+                <li>Final Practical Assessment</li>
+            </ul>
+        </section>
+
+        <section class="content-card">
+            <h2>What You Will Learn</h2>
+
+            <ul class="topic-list">
+                <li>Understand the fundamentals of {{ course.name }}</li>
+                <li>Develop practical computer skills</li>
+                <li>Complete exercises and assignments</li>
+                <li>Apply your knowledge to practical tasks</li>
+                <li>Improve your confidence and problem-solving skills</li>
+            </ul>
+        </section>
+
+        <section class="content-card">
+            <h2>Study Materials</h2>
+            <p>
+                Enrolled students can access course-related notes,
+                PDF materials, assignments and practical resources
+                through their student dashboard.
+            </p>
+        </section>
+
+    </div>
+
+    <aside class="enroll-card">
+
+        <div class="label">COURSE ENROLLMENT</div>
+
+        <div class="price">₹{{ course.fees }}</div>
+
+        <p class="description">
+            Start learning with Modern Computer Classes.
+            Explore the course and enroll to begin your learning journey.
+        </p>
+
+        {% if user.is_authenticated %}
+
+            {% if user.is_staff %}
+
+                <a href="{% url 'admin_dashboard' %}" class="enroll-btn">
+                    Admin Dashboard →
+                </a>
+
+            {% elif is_enrolled %}
+
+                <button type="button" class="enroll-btn" disabled>
+                    ✓ Already Enrolled
+                </button>
+
+                <a href="{% url 'student_dashboard' %}" class="back-link">
+                    Go to Student Dashboard →
+                </a>
+
+            {% else %}
+
+                <form method="POST" action="{% url 'enroll_course' course.id %}">
+                    {% csrf_token %}
+
+                    <button type="submit" class="enroll-btn">
+                        Enroll Now →
+                    </button>
+                </form>
+
+            {% endif %}
+
+        {% else %}
+
+            <a href="{% url 'login' %}" class="enroll-btn">
+                Login to Enroll →
+            </a>
+
+            <a href="{% url 'registration' %}" class="back-link">
+                New Student? Register Now
+            </a>
+
+        {% endif %}
+
+        <a href="{% url 'courses' %}" class="back-link">
+            ← Back to All Courses
+        </a>
+
+    </aside>
+
+</main>
+
+<footer>
+    <p>© 2026 <span>Modern Computer Classes</span>. All Rights Reserved.</p>
+    <p>Learn • Grow • Innovate</p>
+</footer>
+
+</body>
+</html>
