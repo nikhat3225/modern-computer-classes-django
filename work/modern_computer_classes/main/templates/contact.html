@@ -2,573 +2,628 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | Modern Computer Classes</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<title>Contact Us | Modern Computer Classes</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background: linear-gradient(135deg, #06172f, #083b63, #087d9e, #0bb9df);
-            color: white;
-        }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
-        .contact-hero {
-            text-align: center;
-            padding: 45px 20px 25px;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .contact-hero h1 {
-            font-size: 36px;
-            color: white;
-            margin-bottom: 10px;
-        }
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#06172f,#083b63,#087d9e,#0bb9df);
+    min-height:100vh;
+    color:#102c4d;
+}
 
-        .contact-hero p {
-            color: #d6f5ff;
-            font-size: 14px;
-        }
+header{
+    padding:18px 7%;
+    background:rgba(3,18,40,.88);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(85,221,255,.3);
+    box-shadow:0 5px 25px rgba(0,0,0,.25);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
 
-        .contact-container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 20px auto 50px;
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 25px;
-        }
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
 
-        .contact-info,
-        .contact-form,
-        .location {
-            background: rgba(255,255,255,0.97);
-            color: #172033;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.25);
-        }
+.brand img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #55ddff;
+}
 
-        .contact-info h2,
-        .contact-form h2 {
-            color: #102c4d;
-            margin-bottom: 10px;
-        }
+.brand h2{
+    color:white;
+    font-size:20px;
+}
 
-        .intro,
-        .form-subtitle {
-            color: #718293;
-            font-size: 13px;
-            line-height: 1.7;
-            margin-bottom: 22px;
-        }
+.brand span{
+    display:block;
+    color:#55ddff;
+    font-size:11px;
+    letter-spacing:2px;
+}
 
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 13px;
-            margin-bottom: 13px;
-            background: #f1f9fc;
-            border-radius: 12px;
-            transition: 0.3s;
-        }
+nav{
+    display:flex;
+    gap:22px;
+}
 
-        .info-item:hover {
-            transform: translateX(5px);
-        }
+nav a{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+    transition:.3s;
+}
 
-        .info-icon {
-            width: 45px;
-            height: 45px;
-            flex-shrink: 0;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #087da0, #10c6eb);
-            color: white;
-            font-size: 20px;
-        }
+nav a:hover{
+    color:#55ddff;
+}
 
-        .info-item h4 {
-            font-size: 13px;
-            color: #102c4d;
-            margin-bottom: 5px;
-        }
+.contact-hero{
+    text-align:center;
+    padding:55px 20px 35px;
+    color:white;
+}
 
-        .info-item p,
-        .info-item a {
-            font-size: 12px;
-            color: #718293;
-            text-decoration: none;
-        }
+.contact-hero h1{
+    font-size:42px;
+    font-weight:800;
+    margin-bottom:10px;
+    animation:fadeDown 1s ease;
+}
 
-        .info-item a:hover {
-            color: #078eb7;
-        }
+.contact-hero p{
+    font-size:15px;
+    opacity:.9;
+    animation:fadeUp 1s ease;
+}
 
-        .social-title {
-            margin-top: 25px;
-            margin-bottom: 12px;
-            color: #102c4d;
-            font-size: 14px;
-        }
+@keyframes fadeDown{
+    from{opacity:0;transform:translateY(-25px);}
+    to{opacity:1;transform:translateY(0);}
+}
 
-        .social-links {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(25px);}
+    to{opacity:1;transform:translateY(0);}
+}
 
-        .social-links a {
-            text-decoration: none;
-            padding: 9px 13px;
-            border-radius: 9px;
-            background: #e5f7fc;
-            color: #087da0;
-            font-size: 12px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+.contact-container{
+    width:90%;
+    max-width:1100px;
+    margin:10px auto 60px;
+    display:grid;
+    grid-template-columns:1fr 1.2fr;
+    gap:25px;
+}
 
-        .social-links a:hover {
-            background: linear-gradient(135deg, #087da0, #10c6eb);
-            color: white;
-            transform: translateY(-3px);
-        }
+.contact-info{
+    background:rgba(255,255,255,.96);
+    padding:30px;
+    border-radius:22px;
+    box-shadow:0 15px 35px rgba(0,0,0,.22);
+    animation:slideLeft 1s ease;
+}
 
-        .contact-form form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+@keyframes slideLeft{
+    from{opacity:0;transform:translateX(-30px);}
+    to{opacity:1;transform:translateX(0);}
+}
 
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 13px 15px;
-            border: 1px solid #d7e1e8;
-            border-radius: 9px;
-            background: #f8fbfd;
-            font-family: inherit;
-            font-size: 13px;
-            outline: none;
-            color: #172033;
-        }
+.contact-info h2{
+    color:#102c4d;
+    margin-bottom:8px;
+}
 
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: #0bb8df;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(11,184,223,0.12);
-        }
+.contact-info .intro{
+    color:#68798a;
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:25px;
+}
 
-        .contact-form textarea {
-            resize: none;
-        }
+.info-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:15px;
+    margin-bottom:13px;
+    background:#f5fbfd;
+    border-radius:13px;
+    transition:.3s;
+}
 
-        .submit-btn {
-            padding: 14px;
-            border: none;
-            border-radius: 9px;
-            background: linear-gradient(135deg, #087da0, #0bc3e8);
-            color: white;
-            font-family: inherit;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 8px 20px rgba(8,125,160,0.25);
-        }
+.info-item:hover{
+    transform:translateX(5px);
+    background:#e8f8fc;
+}
 
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(8,125,160,0.35);
-        }
+.info-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#087da0,#0bc3e8);
+    color:white;
+    font-size:20px;
+    flex-shrink:0;
+}
 
-        .location {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto 50px;
-            text-align: center;
-        }
+.info-item h4{
+    font-size:13px;
+    color:#102c4d;
+}
 
-        .location h3 {
-            color: #102c4d;
-            margin-bottom: 8px;
-        }
+.info-item p,
+.info-item a{
+    font-size:12px;
+    color:#647789;
+    text-decoration:none;
+}
 
-        .location p {
-            color: #718293;
-            font-size: 13px;
-        }
+.info-item a:hover{
+    color:#087da0;
+}
 
-        .toast {
-            position: fixed;
-            top: 90px;
-            right: 25px;
-            background: linear-gradient(135deg, #087da0, #0bc3e8);
-            color: white;
-            padding: 14px 20px;
-            border-radius: 10px;
-            opacity: 0;
-            transform: translateX(120%);
-            transition: 0.4s;
-            z-index: 2000;
-        }
+.social-title{
+    margin-top:25px;
+    margin-bottom:12px;
+    color:#102c4d;
+    font-size:14px;
+}
 
-        .toast.show {
-            opacity: 1;
-            transform: translateX(0);
-        }
+.social-links{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
 
-        /* FOOTER SAME AS INDEX THEME */
+.social-links a{
+    text-decoration:none;
+    padding:9px 13px;
+    border-radius:9px;
+    background:#eaf8fc;
+    color:#087da0;
+    font-size:12px;
+    font-weight:600;
+    transition:.3s;
+}
 
-        .footer {
-            background: linear-gradient(135deg, #04152d, #062d4d, #064d66);
-            color: white;
-            padding: 40px 7% 18px;
-            border-top: 1px solid rgba(85,221,255,0.2);
-            box-shadow: 0 -8px 30px rgba(0,0,0,0.15);
-            margin-top: auto;
-        }
+.social-links a:hover{
+    background:#087da0;
+    color:white;
+    transform:translateY(-3px);
+}
 
-        .footer-content {
-            max-width: 1100px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 45px;
-        }
+.contact-form{
+    background:rgba(255,255,255,.97);
+    padding:30px;
+    border-radius:22px;
+    box-shadow:0 15px 35px rgba(0,0,0,.22);
+    animation:slideRight 1s ease;
+}
 
-        .footer-brand h2 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: white;
-        }
+@keyframes slideRight{
+    from{opacity:0;transform:translateX(30px);}
+    to{opacity:1;transform:translateX(0);}
+}
 
-        .footer-brand .tagline {
-            color: #55ddff;
-            font-size: 12px;
-            letter-spacing: 1.5px;
-            margin-bottom: 12px;
-        }
+.contact-form h2{
+    color:#102c4d;
+    margin-bottom:7px;
+}
 
-        .footer-brand .description {
-            color: #a9bbc8;
-            font-size: 13px;
-            line-height: 1.6;
-            max-width: 330px;
-        }
+.form-subtitle{
+    color:#68798a;
+    font-size:13px;
+    margin-bottom:23px;
+}
 
-        .footer-column h3 {
-            font-size: 15px;
-            margin-bottom: 15px;
-            color: white;
-        }
+form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
 
-        .footer-column h3::after {
-            content: "";
-            display: block;
-            width: 28px;
-            height: 2px;
-            background: #55ddff;
-            margin-top: 7px;
-        }
+.input-group{
+    display:flex;
+    gap:12px;
+}
 
-        .footer-column a {
-            display: block;
-            width: fit-content;
-            margin-bottom: 10px;
-            color: #b9cad6;
-            text-decoration: none;
-            font-size: 13px;
-            transition: 0.3s;
-        }
+.input-group input{
+    width:50%;
+}
 
-        .footer-column a:hover {
-            color: #55ddff;
-            transform: translateX(5px);
-        }
+input,
+textarea,
+select{
+    width:100%;
+    padding:13px 15px;
+    border:1px solid #d7e1e8;
+    border-radius:10px;
+    background:#f8fbfd;
+    font-family:Poppins;
+    font-size:13px;
+    outline:none;
+    transition:.3s;
+}
 
-        .footer-bottom {
-            max-width: 1100px;
-            margin: 30px auto 0;
-            padding-top: 17px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-        }
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#0bb8df;
+    box-shadow:0 0 0 3px rgba(11,184,223,.12);
+    background:white;
+}
 
-        .footer-bottom p {
-            color: #7f95a5;
-            font-size: 11px;
-            line-height: 1.6;
-        }
+textarea{
+    resize:none;
+}
 
-        .footer-bottom .future-text {
-            color: #55cfea;
-            margin-top: 3px;
-        }
+.submit-btn{
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#087da0,#0bc3e8);
+    color:white;
+    font-family:Poppins;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 6px 18px rgba(8,125,160,.25);
+}
 
-        @media(max-width: 700px) {
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
+.submit-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(8,125,160,.35);
+}
 
-            .contact-hero h1 {
-                font-size: 28px;
-            }
+.location{
+    width:90%;
+    max-width:1100px;
+    margin:0 auto 60px;
+    background:rgba(255,255,255,.96);
+    padding:25px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 12px 30px rgba(0,0,0,.2);
+}
 
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 28px;
-            }
+.location h3{
+    color:#102c4d;
+    margin-bottom:7px;
+}
 
-            .footer-brand,
-            .footer-column {
-                text-align: center;
-            }
+.location p{
+    color:#68798a;
+    font-size:13px;
+}
 
-            .footer-brand .description {
-                margin: auto;
-            }
+footer{
+    background:linear-gradient(135deg,#04152d,#062d4d,#064d66);
+    color:white;
+    text-align:center;
+    padding:25px;
+    font-size:13px;
+}
 
-            .footer-column h3::after {
-                margin-left: auto;
-                margin-right: auto;
-            }
+footer span{
+    color:#55ddff;
+}
 
-            .footer-column a {
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-    </style>
+.toast{
+    position:fixed;
+    top:90px;
+    right:25px;
+    background:#062d4d;
+    color:white;
+    padding:14px 20px;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,.3);
+    z-index:2000;
+    font-size:13px;
+    animation:toastIn .4s ease;
+}
+
+@keyframes toastIn{
+    from{opacity:0;transform:translateX(120%);}
+    to{opacity:1;transform:translateX(0);}
+}
+
+.error-message{
+    color:#d62828;
+    font-size:12px;
+    margin-top:-8px;
+}
+
+@media(max-width:800px){
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav{
+        gap:12px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .contact-hero h1{
+        font-size:32px;
+    }
+
+    .contact-container{
+        grid-template-columns:1fr;
+    }
+
+    .input-group{
+        flex-direction:column;
+    }
+
+    .input-group input{
+        width:100%;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
-    <!-- HEADER SAME AS INDEX -->
+<!-- HEADER -->
 
-    <header>
-        <div class="top-header">
-            <div class="logo">
-                <img src="{% static 'images/logo.jpg' %}" alt="Modern Computer Classes Logo">
+<header>
 
-                <div>
-                    <h1>Modern Computer Classes</h1>
-                    <p>Learn • Grow • Innovate</p>
-                </div>
-            </div>
-        </div>
+    <div class="brand">
 
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="/courses/">Courses</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="/contact/" class="active">Contact</a></li>
-                <li><a href="/gallery/">Tech Hub</a></li>
-                <li><a href="/registration/">Registration</a></li>
-            </ul>
-        </nav>
-    </header>
+        <img src="{% static 'images/logo.jpg' %}"
+             alt="Modern Computer Classes Logo">
 
-
-    <!-- CONTACT HERO -->
-
-    <section class="contact-hero">
-        <h1>📞 Contact Us</h1>
-        <p>Have questions about our courses? We're here to help you.</p>
-    </section>
-
-
-    <!-- CONTACT SECTION -->
-
-    <div class="contact-container">
-
-        <div class="contact-info">
-
-            <h2>Let's Connect 🤝</h2>
-
-            <p class="intro">
-                Get in touch with Modern Computer Classes for
-                admissions, course details, certificates and
-                other enquiries.
-            </p>
-
-            <div class="info-item">
-                <div class="info-icon">📞</div>
-                <div>
-                    <h4>Phone</h4>
-                    <a href="tel:+919876543210">+91 9876543210</a>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-icon">📧</div>
-                <div>
-                    <h4>Email</h4>
-                    <a href="mailto:modernclasses@gmail.com">
-                        modernclasses@gmail.com
-                    </a>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-icon">📍</div>
-                <div>
-                    <h4>Address</h4>
-                    <p>Bhigwan Chowk, Baramati, Pune, Maharashtra</p>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <div class="info-icon">🕐</div>
-                <div>
-                    <h4>Class Timings</h4>
-                    <p>Monday – Saturday | 8 AM – 8 PM</p>
-                </div>
-            </div>
-
-            <h3 class="social-title">Connect With Us</h3>
-
-            <div class="social-links">
-                <a href="https://www.facebook.com/" target="_blank">🌐 Facebook</a>
-                <a href="https://www.instagram.com/" target="_blank">📸 Instagram</a>
-                <a href="https://www.youtube.com/" target="_blank">▶️ YouTube</a>
-                <a href="https://wa.me/919876543210">💬 WhatsApp</a>
-            </div>
-
-        </div>
-
-
-        <div class="contact-form">
-
-            <h2>Send Us a Message 💬</h2>
-
-            <p class="form-subtitle">
-                Fill out the form and our team will get back to you.
-            </p>
-
-            <form id="contactForm" method="POST">
-                {% csrf_token %}
-
-                <input type="text" name="name" placeholder="Full Name" required>
-
-                <input type="email" name="email" placeholder="Email Address" required>
-
-                <input type="text" name="subject" placeholder="Subject" required>
-
-                <textarea name="message" rows="5"
-                    placeholder="Write your message..." required></textarea>
-
-                <button type="submit" class="submit-btn">
-                    Send Message →
-                </button>
-
-            </form>
-
+        <div>
+            <h2>Modern Computer Classes</h2>
+            <span>LEARN • GROW • INNOVATE</span>
         </div>
 
     </div>
 
+    <nav>
+        <a href="/">Home</a>
+        <!--<a href="/about/">About Us</a>-->
+        <a href="/courses/">Courses</a>
+        <a href="{% url 'contact' %}">Contact Us</a>
+        <!--<a href="/student-login/">Login</a>-->
+        <a href="/registration/">Register</a>
+    </nav>
 
-    <section class="location">
-        <h3>📍 Visit Modern Computer Classes</h3>
-        <p>Bhigwan Chowk, Baramati, Pune, Maharashtra</p>
-    </section>
+</header>
 
+<!-- HERO -->
 
-    <!-- FOOTER SAME AS INDEX -->
+<section class="contact-hero">
 
-    <footer class="footer">
+    <h1>📞 Contact Us</h1>
 
-        <div class="footer-content">
+    <p>
+        Have questions about our courses? We're here to help you.
+    </p>
 
-            <div class="footer-brand">
-                <h2>Modern Computer Classes</h2>
+</section>
 
-                <p class="tagline">
-                    LEARN • GROW • INNOVATE
-                </p>
+<!-- CONTACT INFORMATION AND FORM -->
 
-                <p class="description">
-                    Empowering students with practical digital
-                    skills and helping them build a brighter
-                    technology-driven future.
-                </p>
+<div class="contact-container">
+
+    <div class="contact-info">
+
+        <h2>Let's Connect 🤝</h2>
+
+        <p class="intro">
+            Get in touch with Modern Computer Classes for
+            admissions, course details, certificates and
+            other enquiries.
+        </p>
+
+        <div class="info-item">
+            <div class="info-icon">📞</div>
+            <div>
+                <h4>Phone</h4>
+                <a href="tel:+919876543210">+91 9876543210</a>
             </div>
-
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <a href="{% url 'home' %}">Home</a>
-                <a href="/courses/">Courses</a>
-                <a href="/contact/">Contact</a>
-                <a href="/registration/">Registration</a>
-            </div>
-
-            <div class="footer-column">
-                <h3>Connect With Us</h3>
-
-                <a href="https://www.instagram.com/" target="_blank">
-                    📸 Instagram
-                </a>
-
-                <a href="https://www.facebook.com/" target="_blank">
-                    📘 Facebook
-                </a>
-
-                <a href="mailto:moderncomputer@example.com">
-                    ✉️ Email Us
-                </a>
-            </div>
-
         </div>
 
-        <div class="footer-bottom">
-            <p>
-                © 2026 Modern Computer Classes • All Rights Reserved
-            </p>
-
-            <p class="future-text">
-                Learn today. Build tomorrow. 🚀
-            </p>
+        <div class="info-item">
+            <div class="info-icon">📧</div>
+            <div>
+                <h4>Email</h4>
+                <a href="mailto:modernclasses@gmail.com">
+                    modernclasses@gmail.com
+                </a>
+            </div>
         </div>
 
-    </footer>
+        <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div>
+                <h4>Address</h4>
+                <p>Bhigwan Chowk, Baramati, Pune, Maharashtra</p>
+            </div>
+        </div>
 
+        <div class="info-item">
+            <div class="info-icon">🕐</div>
+            <div>
+                <h4>Class Timings</h4>
+                <p>Monday – Saturday | 8 AM – 8 PM</p>
+            </div>
+        </div>
 
-    <!-- DJANGO SUCCESS MESSAGES -->
+        <h3 class="social-title">Connect With Us</h3>
 
-    <div class="toast" id="toast">
-        {% for message in messages %}
+        <div class="social-links">
+            <a href="#">🌐 Facebook</a>
+            <a href="#">📸 Instagram</a>
+            <a href="#">▶️ YouTube</a>
+            <a href="https://wa.me/919876543210">💬 WhatsApp</a>
+        </div>
+
+    </div>
+
+    <!-- CONTACT FORM -->
+
+    <div class="contact-form">
+
+        <h2>Send Us a Message 💬</h2>
+
+        <p class="form-subtitle">
+            Fill out the form and our team will get back to you.
+        </p>
+
+        <form id="contactForm" method="POST" action="{% url 'contact' %}">
+
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <p class="error-message">
+                    Please check your details and try again.
+                </p>
+            {% endif %}
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    value="{{ form.name.value|default_if_none:'' }}"
+                    required
+                >
+
+                <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Mobile Number"
+                    value="{{ form.phone.value|default_if_none:'' }}"
+                    required
+                >
+
+            </div>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value="{{ form.email.value|default_if_none:'' }}"
+                required
+            >
+
+            <select name="course" required>
+
+                <option value="">Select Course</option>
+
+                <option value="Programming">Programming</option>
+                <option value="MS Office">MS Office</option>
+                <option value="Web Designing">Web Designing</option>
+                <option value="Graphic Design">Graphic Design</option>
+
+            </select>
+
+            <textarea
+                name="message"
+                rows="5"
+                placeholder="Write your message..."
+                required
+            >{{ form.message.value|default_if_none:'' }}</textarea>
+
+            <button type="submit" class="submit-btn">
+                Send Message 🚀
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- LOCATION -->
+
+<section class="location">
+
+    <h3>📍 Visit Modern Computer Classes</h3>
+
+    <p>
+        Bhigwan Chowk, Baramati, Pune, Maharashtra
+    </p>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    © 2026
+    <span>Modern Computer Classes</span>
+    |
+    Learn • Grow • Innovate
+
+</footer>
+
+<!-- DJANGO MESSAGES -->
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="toast" id="toast">
             {{ message }}
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
+{% endif %}
 
+<!-- JAVASCRIPT -->
 
-    <script>
-        const toast = document.getElementById("toast");
+<script>
 
-        if (toast.textContent.trim() !== "") {
-            toast.classList.add("show");
+const toast = document.getElementById("toast");
 
-            setTimeout(function() {
-                toast.classList.remove("show");
-            }, 3000);
-        }
-    </script>
+if(toast){
+
+    setTimeout(function(){
+
+        toast.style.opacity = "0";
+        toast.style.transform = "translateX(120%)";
+
+    },3000);
+
+}
+
+</script>
 
 </body>
 </html>
