@@ -72,9 +72,18 @@ def courses(request):
     return render(request, "courses.html", {
         "courses": courses
     })
-
 def ms_office(request):
     return render(request, 'ms_office.html')
+
+def programming(request):
+    return render(request, 'programming.html')
+
+def graphic_design(request):
+    return render(request, 'graphic_design.html')
+
+def web_development(request):
+    return render(request, 'web_development.html')
+
 
 # ---------- Course Detail (Public) ----------
 
@@ -675,6 +684,56 @@ def add_payment(request):
                 request,
                 "Please enter valid payment details."
             )
+
+    return redirect("/admin_dashboard/#payments")
+
+
+# ---------- Update Payment Status (NEW) ----------
+
+@require_POST
+@user_passes_test(is_admin, login_url="admin_login")
+def update_payment_status(request, payment_id):
+
+    payment = get_object_or_404(
+        Payment.objects.select_related("student", "course"),
+        id=payment_id
+    )
+
+    new_status = request.POST.get("status", "").strip()
+
+    if new_status not in ("Pending", "Paid"):
+        messages.error(request, "Invalid payment status.")
+        return redirect("/admin_dashboard/#payments")
+
+    with transaction.atomic():
+
+        payment.status = new_status
+        payment.save(update_fields=["status"])
+
+        # Payment Paid hone par us student ka Pending enrollment
+        # automatically Active ho jaye.
+        if new_status == "Paid":
+
+            pending_enrollment = Enrollment.objects.filter(
+                student=payment.student,
+                course=payment.course,
+                status="Pending"
+            ).order_by("-id").first()
+
+            if pending_enrollment:
+                pending_enrollment.status = "Active"
+                pending_enrollment.save(update_fields=["status"])
+
+            student = payment.student
+
+            if not student.course_id:
+                student.course = payment.course
+                student.save(update_fields=["course"])
+
+    messages.success(
+        request,
+        f"Payment #{payment.id} ({payment.student.name}) marked as {new_status}."
+    )
 
     return redirect("/admin_dashboard/#payments")
 

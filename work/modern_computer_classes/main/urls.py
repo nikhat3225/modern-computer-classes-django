@@ -54,5 +54,9 @@ urlpatterns = [
     path('delete-live-class/<int:class_id>/', views.delete_live_class, name='delete_live_class'),
     path('enroll/<int:course_id>/', views.enroll_course, name='enroll_course'),
     path('courses/ms-office/', views.ms_office, name='ms_office'),
+path('courses/programming/', views.programming, name='programming'),
+path('courses/graphic-design/', views.graphic_design, name='graphic_design'),
+path('courses/web-development/', views.web_development, name='web_development'),
+path('update-payment-status/<int:payment_id>/', views.update_payment_status, name='update_payment_status'),
     
 ]
